@@ -13,13 +13,11 @@ const EliminarTodosProductos = () => {
       setLoading(true);
       setResultado(null);
       
-      console.log('🗑️ Iniciando eliminación de todos los productos...');
       
       // Obtener todos los productos
       const response = await menuApi.obtenerProductos();
       const productos = response.data || response || [];
       
-      console.log(`📋 Se encontraron ${productos.length} productos para eliminar`);
       
       if (productos.length === 0) {
         setResultado({
@@ -41,12 +39,10 @@ const EliminarTodosProductos = () => {
         try {
           await menuApi.eliminarProducto(producto.id);
           eliminados++;
-          detalles.push(`✅ ${producto.nombre}`);
-          console.log(`✅ Producto eliminado: ${producto.nombre} (ID: ${producto.id})`);
+          detalles.push(` ${producto.nombre}`);
         } catch (error) {
           errores++;
-          detalles.push(`❌ ${producto.nombre} - Error: ${error.message}`);
-          console.error(`❌ Error al eliminar producto ${producto.nombre}:`, error);
+          detalles.push(` ${producto.nombre} - Error: ${error.message}`);
         }
       }
       
@@ -55,7 +51,6 @@ const EliminarTodosProductos = () => {
       localStorage.removeItem('menuCategories');
       localStorage.removeItem('menuCacheTimestamp');
       await clearImageCache();
-      console.log('🗑️ Caché de imágenes limpiado');
       
       setResultado({
         tipo: eliminados === productos.length ? 'success' : errores > 0 ? 'warning' : 'error',
@@ -71,7 +66,6 @@ const EliminarTodosProductos = () => {
       });
       
     } catch (error) {
-      console.error('💥 Error al obtener la lista de productos:', error);
       setResultado({
         tipo: 'error',
         mensaje: `Error al obtener la lista de productos: ${error.message}`,
@@ -161,9 +155,9 @@ const EliminarTodosProductos = () => {
         <div className={`mt-4 p-4 rounded-lg border ${getColorClasses(resultado.tipo)}`}>
           <p className="font-semibold mb-2">{resultado.mensaje}</p>
           <div className="text-sm space-y-1">
-            <p>✅ Eliminados: {resultado.eliminados}</p>
-            <p>❌ Errores: {resultado.errores}</p>
-            <p>📊 Total procesados: {resultado.total}</p>
+            <p> Eliminados: {resultado.eliminados}</p>
+            <p> Errores: {resultado.errores}</p>
+            <p> Total procesados: {resultado.total}</p>
           </div>
           
           {resultado.detalles && resultado.detalles.length > 0 && (

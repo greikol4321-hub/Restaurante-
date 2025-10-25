@@ -140,7 +140,7 @@ const ShoppingCart = ({ cartItems, onDecrease, onIncrease, onRemove, onPagar, pa
             </button>
 
             <p className="text-xs text-center text-[#666666]">
-              Pedido seguro y protegido 🔒
+              Pedido seguro y protegido 
             </p>
           </div>
         </>

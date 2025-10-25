@@ -38,7 +38,6 @@ const HomeMesero = () => {
         });
         setMesas(mesasData);
       } catch (error) {
-        console.error('Error cargando estado de mesas:', error);
       } finally {
         setLoading(false);
       }
@@ -77,7 +76,6 @@ const HomeMesero = () => {
           // Mostrar confirmación
           alert('Mesa entregada correctamente. Se ha quitado del sistema.');
         } catch (error) {
-          console.error('Error actualizando estado de mesa:', error);
           if (error.response?.status === 500) {
             alert('Error del servidor. Por favor, intenta de nuevo más tarde.');
           } else {

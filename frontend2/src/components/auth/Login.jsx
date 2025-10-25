@@ -74,7 +74,6 @@ const Login = () => {
       const errorMessage = err.response?.data?.message || 'Credenciales incorrectas o error de conexión';
       setError(errorMessage);
       showError(errorMessage);
-      console.error('Error de login:', err);
     } finally {
       setLoading(false);
     }

@@ -127,7 +127,6 @@ const GestionReservas = () => {
       const errorMsg = 'Error al cargar las reservas';
       setError(errorMsg);
       showError(errorMsg);
-      console.error('Error:', err);
     } finally {
       setLoading(false);
     }
@@ -148,7 +147,6 @@ const GestionReservas = () => {
       const errorMsg = 'Error al actualizar el estado de la reserva';
       setError(errorMsg);
       showError(errorMsg);
-      console.error('Error:', err);
     }
   };
 
@@ -190,7 +188,7 @@ const GestionReservas = () => {
             <div className="bg-red-600/10 border-2 border-red-500/50 text-red-400 px-6 py-4 rounded-xl mb-6
                           flex items-center gap-3 animate-[slideDown_0.3s_ease-out]">
               <div className="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0">
-                <span className="text-xl">❌</span>
+                <span className="text-xl"></span>
               </div>
               <p className="flex-1 text-lg font-semibold">{error}</p>
             </div>
@@ -200,7 +198,7 @@ const GestionReservas = () => {
             <div className="bg-green-600/10 border-2 border-green-500/50 text-green-400 px-6 py-4 rounded-xl mb-6
                           flex items-center gap-3 animate-[slideDown_0.3s_ease-out]">
               <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
-                <span className="text-xl">✅</span>
+                <span className="text-xl"></span>
               </div>
               <p className="flex-1 text-lg font-semibold">{success}</p>
             </div>
@@ -283,7 +281,7 @@ const GestionReservas = () => {
                       <div className="flex items-center gap-3">
                         <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#d4af37] to-[#c5a028] 
                                       flex items-center justify-center shadow-lg">
-                          <span className="text-[#000000] font-black text-2xl">📅</span>
+                          <span className="text-[#000000] font-black text-2xl"></span>
                         </div>
                         <div>
                           <h3 className="text-2xl font-black text-[#ffffff] group-hover:text-[#d4af37] 
@@ -291,24 +289,24 @@ const GestionReservas = () => {
                             Reserva #{reserva.id}
                           </h3>
                           <p className="text-[#bfbfbf] text-sm mt-1">
-                            <span className="text-[#d4af37] font-semibold">👤 Cliente:</span>{' '}
+                            <span className="text-[#d4af37] font-semibold"> Cliente:</span>{' '}
                             {`${reserva.usuarioNombre} ${reserva.usuarioApellido}`}
                           </p>
                         </div>
                       </div>
                       <div className="grid grid-cols-3 gap-3">
                         <div className="bg-[#0b0b0b]/50 border border-[#c5a028]/20 rounded-xl p-3">
-                          <p className="text-[#888888] text-xs uppercase tracking-wider mb-1">📅 Fecha</p>
+                          <p className="text-[#888888] text-xs uppercase tracking-wider mb-1"> Fecha</p>
                           <p className="text-[#ffffff] text-sm font-bold">
                             {new Date(reserva.fechaReserva).toLocaleDateString()}
                           </p>
                         </div>
                         <div className="bg-[#0b0b0b]/50 border border-[#c5a028]/20 rounded-xl p-3">
-                          <p className="text-[#888888] text-xs uppercase tracking-wider mb-1">📞 Teléfono</p>
+                          <p className="text-[#888888] text-xs uppercase tracking-wider mb-1"> Teléfono</p>
                           <p className="text-[#d4af37] text-sm font-bold">{reserva.telefono}</p>
                         </div>
                         <div className="bg-[#0b0b0b]/50 border border-[#c5a028]/20 rounded-xl p-3">
-                          <p className="text-[#888888] text-xs uppercase tracking-wider mb-1">👥 Personas</p>
+                          <p className="text-[#888888] text-xs uppercase tracking-wider mb-1"> Personas</p>
                           <p className="text-[#ffffff] text-sm font-bold">{reserva.numeroPersonas}</p>
                         </div>
                       </div>

@@ -39,13 +39,12 @@ const ModalCrearOrden = ({ mesa, open, onClose, onCreated }) => {
     }
   }, [open]);
 
-  // ✅ Cargar categorías y productos cuando se abre el modal
+  // Cargar categorías y productos cuando se abre el modal
   useEffect(() => {
     if (!open) return;
 
     const loadCategorias = async () => {
       try {
-        console.log('🔄 Cargando categorías...');
         const catRes = await menuApi.obtenerCategorias();
         const categorias = Array.isArray(catRes?.data) ? catRes.data : [];
         if (categorias.length > 0) {
@@ -53,30 +52,24 @@ const ModalCrearOrden = ({ mesa, open, onClose, onCreated }) => {
             .map(cat => cat.nombre)
             .sort((a, b) => a.localeCompare(b));
           setCategories(['Todos', ...categoriasOrdenadas]);
-          console.log('✅ Categorías cargadas:', categoriasOrdenadas);
         }
       } catch (error) {
-        console.error('❌ Error cargando categorías:', error);
       }
     };
 
     const loadProductos = async () => {
       try {
         setLoading(true);
-        console.log('🔄 Cargando productos desde la API...');
         const res = await menuApi.obtenerProductos();
         const data = Array.isArray(res?.data) ? res.data : res || [];
 
         if (data.length === 0) {
-          console.warn('⚠️ No se recibieron productos desde la API');
           setItems([]);
           return;
         }
 
-        console.log('✅ Productos cargados:', data);
         setItems(data);
       } catch (error) {
-        console.error('❌ Error cargando productos:', error);
         alert('Error al cargar el menú. Verifica la conexión con el servidor.');
       } finally {
         setLoading(false);
@@ -87,7 +80,6 @@ const ModalCrearOrden = ({ mesa, open, onClose, onCreated }) => {
       loadCategorias(),
       loadProductos()
     ]).catch(error => {
-      console.error('❌ Error cargando datos:', error);
       alert('Error al cargar los datos. Por favor, intenta nuevamente.');
     });
   }, [open]);
@@ -155,11 +147,9 @@ const ModalCrearOrden = ({ mesa, open, onClose, onCreated }) => {
         })),
       };
 
-      console.log('📤 Enviando orden:', payload);
 
       // Crear la orden
       const response = await mesaOrdenesApi.crearOrden(payload);
-      console.log('✅ Orden creada exitosamente:', response);
 
       // La orden ya se crea con estado OCUPADA, no necesitamos actualizarlo
       showSuccess(`¡Orden creada! Mesa ${mesa} - Total: ${formatColones(total)}`);
@@ -168,7 +158,6 @@ const ModalCrearOrden = ({ mesa, open, onClose, onCreated }) => {
       onCreated?.(response.data);
       onClose?.();
     } catch (err) {
-      console.error('❌ Error creando la orden:', err);
 
       let errorMsg = 'No fue posible crear la orden';
       if (err.response?.status === 500) {
@@ -243,14 +232,13 @@ const ModalCrearOrden = ({ mesa, open, onClose, onCreated }) => {
                         alt={p.nombre}
                         className="w-full h-full object-cover"
                         onError={(e) => {
-                          console.warn(`⚠️ Error cargando imagen para ${p.nombre}:`, p.imagenUrl);
                           e.target.onerror = null;
                           e.target.src = 'https://via.placeholder.com/150x100?text=Sin+imagen';
                         }}
                       />
                     ) : (
                       <div className="w-full h-full flex flex-col items-center justify-center text-[#d4af37]/60 gap-1">
-                        <span className="text-2xl">🍽️</span>
+                        <span className="text-2xl">Sin imagen</span>
                         <span className="text-xs">Sin imagen</span>
                       </div>
                     )}
@@ -289,7 +277,7 @@ const ModalCrearOrden = ({ mesa, open, onClose, onCreated }) => {
                         />
                       ) : (
                         <div className="w-full h-full flex flex-col items-center justify-center text-[#d4af37]/60">
-                          <span>🍽️</span>
+                          <span>Sin imagen</span>
                         </div>
                       )}
                     </div>
@@ -316,7 +304,7 @@ const ModalCrearOrden = ({ mesa, open, onClose, onCreated }) => {
                       className="px-2 py-1 rounded bg-red-600/80 hover:bg-red-600 text-white"
                       onClick={() => removeFromCart(producto.id)}
                     >
-                      ✕
+                      
                     </button>
                   </div>
                 ))

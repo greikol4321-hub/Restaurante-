@@ -71,7 +71,6 @@ function MenuDigital() {
     const user = JSON.parse(sessionStorage.getItem('user'));
     if (user && user.rol) {
       setUserRole(user.rol);
-      console.log('Role del usuario:', user.rol); // Para debug
     }
   }, []);
 
@@ -141,12 +140,10 @@ function MenuDigital() {
 
             // Cachear imágenes de productos en segundo plano
             cacheProductImages(processedData).then(() => {
-              console.log('✅ Imágenes de productos cacheadas');
             });
           }
         } catch (err) {
           if (isMounted) {
-            console.error('Error al cargar los productos:', err);
             setError('Error al cargar los productos. Por favor, intente más tarde.');
             setLoading(false);
           }
@@ -220,7 +217,6 @@ function MenuDigital() {
   const handlePagar = async () => {
     try {
       const user = JSON.parse(sessionStorage.getItem('user'));
-      console.log('Datos del usuario en sessionStorage:', user); // Debug
 
       if (!user) {
         showError('Debes iniciar sesión para realizar un pedido');
@@ -245,7 +241,6 @@ function MenuDigital() {
         return;
       }
 
-      console.log('Usuario validado:', { id: user.id, rol: user.rol }); // Debug
       
       showInfo('Procesando tu pedido...');
       
@@ -272,11 +267,9 @@ function MenuDigital() {
       }, 2000);
       
     } catch (error) {
-      console.error('Error al crear el pedido:', error);
       
       // Obtener mensaje de error del servidor
       const errorMessage = error.response?.data?.message || error.message;
-      console.log('Mensaje de error:', errorMessage);
 
       // Manejar diferentes tipos de errores
       if (errorMessage.includes('Usuario no encontrado') || error.message === 'Usuario no encontrado') {
@@ -294,11 +287,6 @@ function MenuDigital() {
       }
       
       // Log detallado para debugging
-      console.log('Detalles del error:', {
-        status: error.response?.status,
-        data: error.response?.data,
-        headers: error.response?.headers
-      });
     }
   };
 

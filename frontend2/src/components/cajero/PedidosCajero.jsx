@@ -243,7 +243,7 @@ ModalPago.propTypes = {
 };
 
 const PedidosCajero = () => {
-  const { showSuccess, showError, showInfo } = useToast();
+  const { showSuccess, showError, showInfo, showWarning } = useToast();
   const [activeTab, setActiveTab] = useState('app');
   const [pedidos, setPedidos] = useState([]);
   const [filtroEstado, setFiltroEstado] = useState('TODOS');
@@ -262,32 +262,25 @@ const PedidosCajero = () => {
   const obtenerPedidos = async () => {
     try {
       setLoading(true);
-      console.log('🔄 Cargando pedidos para tab:', activeTab);
       
       let response;
       
       if (activeTab === 'app') {
-        console.log('📱 Obteniendo pedidos de app...');
         response = await pedidosApi.listarPedidos();
       } else {
-        console.log('🍽️ Obteniendo órdenes de mesa...');
         response = await mesaOrdenesApi.listarOrdenes();
       }
       
       const data = response.data || response || [];
-      console.log('✅ Datos obtenidos:', { activeTab, total: data.length, data });
       
       // Validar que los datos sean un array
       if (Array.isArray(data)) {
         setPedidos(data);
-        console.log('📝 Pedidos establecidos:', data.length);
       } else {
-        console.warn('⚠️ Los datos no son un array:', data);
         setPedidos([]);
       }
       
     } catch (error) {
-      console.error('❌ Error al obtener pedidos:', error);
       setPedidos([]);
     } finally {
       setLoading(false);
@@ -305,12 +298,6 @@ const PedidosCajero = () => {
       const pedido = modalPago.pedido;
       showInfo('Procesando pago...');
 
-      console.log('💰 Datos del pago a enviar:', {
-        tipo: activeTab,
-        pedidoId: pedido.id,
-        monto: pedido.total || pedido.precioTotal || 0,
-        metodoPago: metodoPago,
-      });
 
       // Preparar el objeto de pago según el tipo (app o mesa)
       const pagoData = {
@@ -327,16 +314,14 @@ const PedidosCajero = () => {
         pagoData.mesaOrden = { id: pedido.id };
       }
 
-      console.log('📤 Enviando datos de pago:', pagoData);
 
       // 1. Crear registro de pago
       await pagosApi.crearPago(pagoData);
 
-      console.log('✅ Pago registrado exitosamente');
 
       showSuccess(
-        `¡Pago registrado exitosamente! Método: ${metodoPago === 'EFECTIVO' ? '💵 Efectivo' : 
-         metodoPago === 'TARJETA_CREDITO' ? '💳 Tarjeta' : '📱 Transferencia'}`
+        `¡Pago registrado exitosamente! Método: ${metodoPago === 'EFECTIVO' ? ' Efectivo' : 
+         metodoPago === 'TARJETA_CREDITO' ? ' Tarjeta' : ' Transferencia'}`
       );
 
       // 3. Cerrar modal y recargar pedidos
@@ -344,8 +329,6 @@ const PedidosCajero = () => {
       obtenerPedidos();
 
     } catch (error) {
-      console.error('❌ Error al procesar pago:', error);
-      console.error('❌ Detalles del error:', error.response?.data);
       const errorMsg = error.response?.data?.message || error.response?.data?.error || 'Error al procesar el pago';
       showError(errorMsg);
     }
@@ -380,7 +363,6 @@ const PedidosCajero = () => {
         accion: null,
       });
     } catch (error) {
-      console.error('Error al cambiar estado:', error);
       const errorMsg = error.response?.data?.message || 'Error al actualizar estado';
       showError(errorMsg);
     }
@@ -396,7 +378,6 @@ const PedidosCajero = () => {
   };
 
   const generarRecibo = (pedido) => {
-    console.log('🧾 Generando recibo para pedido:', pedido);
     showInfo('Generando recibo...');
     
     const recibo = window.open('', '_blank');
@@ -405,8 +386,6 @@ const PedidosCajero = () => {
     const productos = pedido.productos || pedido.detalles || pedido.items || [];
     const total = pedido.total || pedido.precioTotal || 0;
     
-    console.log('📋 Productos encontrados:', productos);
-    console.log('💰 Total:', total);
     
     if (recibo) {
       showSuccess('Recibo generado exitosamente');
@@ -422,7 +401,6 @@ const PedidosCajero = () => {
         const precio = producto.precio || producto.price || producto.precioUnitario || 0;
         return sum + (precio * cantidad);
       }, 0);
-      console.log('💰 Total calculado desde productos:', totalCalculado);
     }
     
     // Nota: document.write está deprecado, pero es funcional para generar recibos de impresión
@@ -511,7 +489,7 @@ const PedidosCajero = () => {
               )
               .join('') : `
               <div class="item">
-                <span>⚠️ No se encontraron productos</span>
+                <span> No se encontraron productos</span>
                 <span></span>
               </div>
             `}
@@ -536,7 +514,6 @@ const PedidosCajero = () => {
 
   // Función para filtrar pedidos según el estado seleccionado
   const filtrarPedidos = () => {
-    console.log('🔍 Filtrando pedidos:', { filtroEstado, totalPedidos: pedidos.length, activeTab });
     
     if (filtroEstado === 'TODOS') {
       if (activeTab === 'app') {
@@ -544,21 +521,18 @@ const PedidosCajero = () => {
         const pedidosFiltrados = pedidos.filter((pedido) => 
           pedido.estado === 'PREPARADO'
         );
-        console.log('📋 Pedidos app por cobrar:', pedidosFiltrados.length);
         return pedidosFiltrados;
       } else {
         // Para órdenes de mesa, mostrar los que están ENTREGADO y listos para cobrar
         const pedidosFiltrados = pedidos.filter((pedido) => 
           pedido.estado === 'ENTREGADO'
         );
-        console.log('📋 Órdenes mesa por cobrar:', pedidosFiltrados.length);
         return pedidosFiltrados;
       }
     }
     
     // Filtrar por estado específico
     const pedidosFiltrados = pedidos.filter((pedido) => pedido.estado === filtroEstado);
-    console.log('📋 Pedidos filtrados (' + filtroEstado + '):', pedidosFiltrados.length);
     return pedidosFiltrados;
   };
 
@@ -597,10 +571,10 @@ const PedidosCajero = () => {
         {/* Tabs limpios */}
         <div className="mb-6 flex rounded-lg overflow-hidden border border-[#d4af37]/30 w-fit">
             <TabButton active={activeTab === 'app'} onClick={() => setActiveTab('app')}>
-              📱 Pedidos App
+               Pedidos App
             </TabButton>
             <TabButton active={activeTab === 'mesa'} onClick={() => setActiveTab('mesa')}>
-              🍽️ Órdenes Mesa
+               Órdenes Mesa
             </TabButton>
         </div>
 
@@ -708,7 +682,7 @@ const PedidosCajero = () => {
                     {/* Estados finales */}
                     {pedido.estado === 'COBRADO' && (
                       <div className="px-4 py-2 bg-yellow-500/20 text-yellow-300 rounded-lg text-sm font-bold border border-yellow-500/30 flex items-center gap-2">
-                        <span>💰</span>
+                        <span></span>
                         <span>Cobrado</span>
                       </div>
                     )}

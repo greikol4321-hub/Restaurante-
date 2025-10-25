@@ -27,13 +27,9 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
   useEffect(() => {
     // Solo actualizar el formulario cuando tengamos tanto el producto como las categorías cargadas
     if (product && categorias.length > 0) {
-      console.log('Producto a editar:', product);
-      console.log('Categorías disponibles:', categorias);
       
       // Intentar obtener el ID de la categoría de múltiples formas posibles
       const catId = product.categoriaId || product.categoria?.id || '';
-      console.log('Categoria ID detectada:', catId);
-      console.log('Estructura de categoría completa:', product.categoria);
       
       setForm({
         nombre: product.nombre || '',
@@ -59,7 +55,6 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
       const response = await menuApi.obtenerCategorias();
       setCategorias(response.data);
     } catch (error) {
-      console.error('Error al cargar categorías:', error);
     }
   };
 
@@ -95,9 +90,9 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label htmlFor="nombre" className="block text-sm font-medium text-[#bfbfbf] mb-2">
+        <label htmlFor="nombre" className="block text-xs font-medium text-[#bfbfbf] mb-1.5">
           Nombre
         </label>
         <input
@@ -107,13 +102,13 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
           value={form.nombre}
           onChange={handleChange}
           required
-          className="w-full rounded-xl bg-[#111111] border border-[#c5a028]/30 px-4 py-3
+          className="w-full rounded-xl bg-[#111111] border border-[#c5a028]/30 px-3 py-2 text-sm
                    text-[#ffffff] placeholder-[#bfbfbf]/50 focus:outline-none focus:ring-2 focus:ring-[#d4af37] focus:border-transparent"
         />
       </div>
 
       <div>
-        <label htmlFor="descripcion" className="block text-sm font-medium text-[#bfbfbf] mb-2">
+        <label htmlFor="descripcion" className="block text-xs font-medium text-[#bfbfbf] mb-1.5">
           Descripción
         </label>
         <textarea
@@ -122,14 +117,14 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
           value={form.descripcion}
           onChange={handleChange}
           required
-          rows="3"
-          className="w-full rounded-xl bg-[#111111] border border-[#c5a028]/30 px-4 py-3
+          rows="2"
+          className="w-full rounded-xl bg-[#111111] border border-[#c5a028]/30 px-3 py-2 text-sm
                    text-[#ffffff] placeholder-[#bfbfbf]/50 focus:outline-none focus:ring-2 focus:ring-[#d4af37] focus:border-transparent"
         />
       </div>
 
       <div>
-        <label htmlFor="precio" className="block text-sm font-medium text-[#bfbfbf] mb-2">
+        <label htmlFor="precio" className="block text-xs font-medium text-[#bfbfbf] mb-1.5">
           Precio
         </label>
         <input
@@ -141,13 +136,13 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
           required
           step="0.01"
           min="0"
-          className="w-full rounded-xl bg-[#111111] border border-[#c5a028]/30 px-4 py-3
+          className="w-full rounded-xl bg-[#111111] border border-[#c5a028]/30 px-3 py-2 text-sm
                    text-[#ffffff] placeholder-[#bfbfbf]/50 focus:outline-none focus:ring-2 focus:ring-[#d4af37] focus:border-transparent"
         />
       </div>
 
       <div>
-        <label htmlFor="imagenUrl" className="block text-sm font-medium text-[#bfbfbf] mb-2">
+        <label htmlFor="imagenUrl" className="block text-xs font-medium text-[#bfbfbf] mb-1.5">
           URL de Imagen
         </label>
         <input
@@ -157,13 +152,13 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
           value={form.imagenUrl}
           onChange={handleChange}
           required
-          className="w-full rounded-xl bg-[#111111] border border-[#c5a028]/30 px-4 py-3
+          className="w-full rounded-xl bg-[#111111] border border-[#c5a028]/30 px-3 py-2 text-sm
                    text-[#ffffff] placeholder-[#bfbfbf]/50 focus:outline-none focus:ring-2 focus:ring-[#d4af37] focus:border-transparent"
         />
       </div>
 
       <div>
-        <label htmlFor="categoriaId" className="block text-sm font-medium text-[#bfbfbf] mb-2">
+        <label htmlFor="categoriaId" className="block text-xs font-medium text-[#bfbfbf] mb-1.5">
           Categoría {categorias.length > 0 && (
             <span className="text-[#d4af37]/60 text-xs ml-2">
               ({categorias.length} disponibles)
@@ -176,7 +171,7 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
           value={form.categoriaId}
           onChange={handleChange}
           required
-          className="w-full rounded-xl bg-[#111111] border border-[#c5a028]/30 px-4 py-3
+          className="w-full rounded-xl bg-[#111111] border border-[#c5a028]/30 px-3 py-2 text-sm
                    text-[#ffffff] focus:outline-none focus:ring-2 focus:ring-[#d4af37] focus:border-transparent"
         >
           <option value="">Seleccionar categoría</option>
@@ -188,16 +183,16 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
         </select>
         {form.categoriaId && (
           <p className="text-[#d4af37]/80 text-xs mt-1">
-            ✓ Categoría seleccionada: {categorias.find(c => c.id === parseInt(form.categoriaId))?.nombre || form.categoriaId}
+             Categoría seleccionada: {categorias.find(c => c.id === parseInt(form.categoriaId))?.nombre || form.categoriaId}
           </p>
         )}
       </div>
 
-      <div className="flex justify-end space-x-3 pt-2">
+      <div className="flex justify-end space-x-3 pt-3">
         <button
           type="button"
           onClick={onCancel}
-          className="px-6 py-2.5 bg-[#1a1a1a] text-[#bfbfbf] border border-[#c5a028]/30 rounded-full font-medium
+          className="px-5 py-2 bg-[#1a1a1a] text-[#bfbfbf] border border-[#c5a028]/30 rounded-full font-medium text-sm
                      hover:bg-[#d4af37]/10 hover:text-[#d4af37] transition-colors duration-200"
         >
           Cancelar
@@ -205,7 +200,7 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
         <button
           type="submit"
           disabled={loading}
-          className="px-6 py-2.5 bg-[#d4af37] text-[#000000] rounded-full font-semibold
+          className="px-5 py-2 bg-[#d4af37] text-[#000000] rounded-full font-semibold text-sm
                    hover:bg-[#c5a028] transition-colors duration-200
                    disabled:opacity-50 disabled:cursor-not-allowed"
         >
@@ -217,6 +212,33 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
 };
 
 ProductForm.propTypes = {
+  product: PropTypes.object,
+  onSubmit: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
+};
+
+/* -------------------- MODAL DE EDICIÓN -------------------- */
+const EditModal = ({ isOpen, product, onSubmit, onCancel }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+      <div className="bg-[#0b0b0b] border border-[#c5a028]/30 p-6 rounded-xl max-w-xl w-full my-8 shadow-2xl">
+        <h3 className="text-xl font-title font-bold text-[#d4af37] mb-4">
+          Editar Producto
+        </h3>
+        <ProductForm
+          product={product}
+          onSubmit={onSubmit}
+          onCancel={onCancel}
+        />
+      </div>
+    </div>
+  );
+};
+
+EditModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
   product: PropTypes.object,
   onSubmit: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
@@ -269,8 +291,10 @@ const ProductAdmin = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategoria, setSelectedCategoria] = useState('');
   const [editingProduct, setEditingProduct] = useState(null);
   const [showForm, setShowForm] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState({ show: false, product: null });
 
   // Scroll automático al formulario cuando se abre
@@ -295,7 +319,6 @@ const ProductAdmin = () => {
       setError('');
     } catch (err) {
       setError('Error al cargar los productos');
-      console.error('Error:', err);
     } finally {
       setLoading(false);
     }
@@ -306,7 +329,6 @@ const ProductAdmin = () => {
       const response = await menuApi.obtenerCategorias();
       setCategorias(response.data);
     } catch (err) {
-      console.error('Error al cargar categorías:', err);
     }
   };
 
@@ -348,7 +370,7 @@ const ProductAdmin = () => {
       
       if (!categoriaNombre) {
         showError('Debe seleccionar una categoría válida');
-        setError('❌ Debe seleccionar una categoría válida');
+        setError(' Debe seleccionar una categoría válida');
         return;
       }
       
@@ -375,13 +397,13 @@ const ProductAdmin = () => {
       
       fetchProducts(searchTerm);
       setShowForm(false);
+      setShowEditModal(false);
       setEditingProduct(null);
       setTimeout(() => setSuccess(''), 3000);
     } catch (err) {
       const errorMsg = err.response?.data?.error || 'Error al guardar el producto';
       showError(errorMsg);
-      setError(`❌ ${errorMsg}`);
-      console.error(err);
+      setError(` ${errorMsg}`);
     }
   };
 
@@ -405,8 +427,7 @@ const ProductAdmin = () => {
     } catch (err) {
       const errorMsg = err.response?.data?.error || 'Error al eliminar el producto';
       showError(errorMsg);
-      setError(`❌ ${errorMsg}`);
-      console.error(err);
+      setError(` ${errorMsg}`);
     }
   };
 
@@ -432,17 +453,41 @@ const ProductAdmin = () => {
           </div>
 
           <div className="mb-8">
-            <div className="relative">
-              <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#bfbfbf]" />
-              <input
-                type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Buscar productos..."
-                className="pl-12 pr-4 py-3 w-full rounded-xl bg-[#111111] border border-[#c5a028]/30
-                         text-[#ffffff] placeholder-[#bfbfbf]/50 focus:outline-none focus:ring-2 
-                         focus:ring-[#d4af37] focus:border-transparent"
-              />
+            <div className="grid md:grid-cols-2 gap-4">
+              {/* Buscador */}
+              <div className="relative">
+                <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#bfbfbf]" />
+                <input
+                  type="text"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  placeholder="Buscar productos..."
+                  className="pl-12 pr-4 py-3 w-full rounded-xl bg-[#111111] border border-[#c5a028]/30
+                           text-[#ffffff] placeholder-[#bfbfbf]/50 focus:outline-none focus:ring-2 
+                           focus:ring-[#d4af37] focus:border-transparent"
+                />
+              </div>
+
+              {/* Filtro por categoría */}
+              <div className="relative">
+                <select
+                  value={selectedCategoria}
+                  onChange={(e) => setSelectedCategoria(e.target.value)}
+                  className="w-full px-4 py-3 rounded-xl bg-[#111111] border border-[#c5a028]/30
+                           text-[#ffffff] focus:outline-none focus:ring-2 
+                           focus:ring-[#d4af37] focus:border-transparent appearance-none cursor-pointer"
+                >
+                  <option value="">Todas las categorías</option>
+                  {categorias.map((cat) => (
+                    <option key={cat.id} value={cat.id}>
+                      {cat.nombre}
+                    </option>
+                  ))}
+                </select>
+                <div className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none text-[#bfbfbf]">
+                  ▼
+                </div>
+              </div>
             </div>
           </div>
 
@@ -488,19 +533,48 @@ const ProductAdmin = () => {
               <p className="text-[#bfbfbf] text-lg">Cargando productos...</p>
             </div>
           ) : (
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {products.map((product) => (
+            <>
+              {products.filter(product => {
+                if (selectedCategoria) {
+                  const productCatId = product.categoriaId || product.categoria?.id;
+                  return productCatId === parseInt(selectedCategoria);
+                }
+                return true;
+              }).length === 0 ? (
+                <div className="text-center py-20">
+                  <div className="text-[#d4af37] text-6xl mb-4">🔍</div>
+                  <p className="text-[#bfbfbf] text-xl mb-2">No se encontraron productos</p>
+                  <p className="text-[#888888]">
+                    {selectedCategoria 
+                      ? 'Intenta seleccionar otra categoría o limpiar los filtros' 
+                      : searchTerm 
+                        ? 'Intenta con otros términos de búsqueda' 
+                        : 'No hay productos disponibles'}
+                  </p>
+                </div>
+              ) : (
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                  {products
+                    .filter(product => {
+                      // Filtrar por categoría si hay una seleccionada
+                      if (selectedCategoria) {
+                        const productCatId = product.categoriaId || product.categoria?.id;
+                        return productCatId === parseInt(selectedCategoria);
+                      }
+                      return true;
+                    })
+                    .map((product) => (
                 <div
                   key={product.id}
                   className="group relative bg-gradient-to-br from-[#1a1a1a] to-[#0b0b0b] 
                            border-2 border-[#c5a028]/20 hover:border-[#d4af37]/60 
-                           rounded-3xl shadow-[0_4px_16px_rgba(0,0,0,0.3)]
+                           rounded-2xl shadow-[0_4px_16px_rgba(0,0,0,0.3)]
                            hover:shadow-[0_8px_24px_rgba(212,175,55,0.2)]
                            transition-all duration-200 overflow-hidden
                            will-change-transform"
                 >
                   {/* Imagen del producto */}
-                  <div className="relative h-56 overflow-hidden bg-[#0a0a0a]">
+                  <div className="relative h-44 overflow-hidden bg-[#0a0a0a]">
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0b] via-transparent to-transparent z-10"></div>
                     <img
                       src={product.imagenUrl}
@@ -508,63 +582,75 @@ const ProductAdmin = () => {
                       loading="lazy"
                       className="w-full h-full object-cover"
                     />
-                    <div className="absolute top-4 right-4 z-20 bg-[#d4af37] 
-                                  px-4 py-2 rounded-full border-2 border-[#c5a028]">
-                      <span className="text-[#000000] font-black text-lg">
+                    <div className="absolute top-3 right-3 z-20 bg-[#d4af37] 
+                                  px-3 py-1.5 rounded-full border-2 border-[#c5a028]">
+                      <span className="text-[#000000] font-black text-base">
                         {formatColones(product.precio)}
                       </span>
                     </div>
                   </div>
                   
                   {/* Contenido */}
-                  <div className="relative p-6 space-y-4">
-                    <div className="space-y-2">
-                      <h3 className="text-2xl font-black text-[#ffffff] group-hover:text-[#d4af37] 
+                  <div className="relative p-4 space-y-3">
+                    <div className="space-y-1.5">
+                      <h3 className="text-xl font-black text-[#ffffff] group-hover:text-[#d4af37] 
                                    transition-colors duration-200 line-clamp-1">
                         {product.nombre}
                       </h3>
-                      <p className="text-[#888888] text-sm leading-relaxed line-clamp-2 min-h-[2.5rem]">
+                      <p className="text-[#888888] text-xs leading-relaxed line-clamp-2 min-h-[2rem]">
                         {product.descripcion}
                       </p>
                     </div>
 
                     {/* Botones de acción */}
-                    <div className="flex gap-3 pt-4 border-t-2 border-[#c5a028]/20">
+                    <div className="flex gap-2 pt-3 border-t-2 border-[#c5a028]/20">
                       <button
                         onClick={() => {
                           setEditingProduct(product);
-                          setShowForm(true);
+                          setShowEditModal(true);
                           showInfo(`Editando producto: ${product.nombre}`);
                         }}
-                        className="flex-1 flex items-center justify-center gap-2 px-4 py-3 
+                        className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 
                                  bg-gradient-to-br from-[#d4af37]/20 to-[#c5a028]/20 
-                                 border-2 border-[#d4af37]/50 text-[#d4af37] rounded-2xl 
+                                 border-2 border-[#d4af37]/50 text-[#d4af37] rounded-xl 
                                  hover:from-[#d4af37] hover:to-[#c5a028] hover:text-[#000000]
                                  hover:border-[#d4af37] transition-colors duration-200
-                                 font-bold"
+                                 font-bold text-sm"
                         title="Editar producto"
                       >
-                        <FaEdit className="text-lg" />
+                        <FaEdit className="text-base" />
                         <span>Editar</span>
                       </button>
                       <button
                         onClick={() => setConfirmDelete({ show: true, product })}
-                        className="px-4 py-3 bg-gradient-to-br from-red-600/20 to-red-700/20 
-                                 border-2 border-red-500/50 text-red-400 rounded-2xl 
+                        className="px-3 py-2.5 bg-gradient-to-br from-red-600/20 to-red-700/20 
+                                 border-2 border-red-500/50 text-red-400 rounded-xl 
                                  hover:from-red-600 hover:to-red-700 hover:text-[#ffffff]
                                  hover:border-red-500 transition-colors duration-200"
                         title="Eliminar producto"
                       >
-                        <FaTrash className="text-lg" />
+                        <FaTrash className="text-base" />
                       </button>
                     </div>
                   </div>
                 </div>
               ))}
-            </div>
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>
+
+      <EditModal
+        isOpen={showEditModal}
+        product={editingProduct}
+        onSubmit={handleCreateUpdate}
+        onCancel={() => {
+          setShowEditModal(false);
+          setEditingProduct(null);
+        }}
+      />
 
       <ConfirmDialog
         isOpen={confirmDelete.show}

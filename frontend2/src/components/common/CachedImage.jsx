@@ -36,7 +36,6 @@ const CachedImage = ({ productId, imagenUrl, alt, className, fallbackName }) => 
           setLoading(false);
         }
       } catch (err) {
-        console.error('Error cargando imagen:', err);
         if (isMounted) {
           setImageSrc(fallbackUrl);
           setError(true);

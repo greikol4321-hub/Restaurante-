@@ -28,7 +28,6 @@ const urlToBlob = async (url) => {
     if (!response.ok) throw new Error('Error al descargar imagen');
     return await response.blob();
   } catch (error) {
-    console.error('Error convirtiendo URL a Blob:', error);
     return null;
   }
 };
@@ -63,7 +62,6 @@ export const cacheImage = async (productId, imageUrl) => {
 
     return URL.createObjectURL(blob);
   } catch (error) {
-    console.error('Error cacheando imagen:', error);
     return imageUrl; // Retornar URL original si falla
   }
 };
@@ -90,7 +88,6 @@ export const getCachedImage = async (productId) => {
       request.onerror = () => reject(request.error);
     });
   } catch (error) {
-    console.error('Error obteniendo imagen del caché:', error);
     return null;
   }
 };
@@ -103,9 +100,8 @@ export const cacheProductImages = async (products) => {
 
   try {
     await Promise.all(cachePromises);
-    console.log(`✅ ${cachePromises.length} imágenes cacheadas exitosamente`);
   } catch (error) {
-    console.error('Error cacheando múltiples imágenes:', error);
+    // Error silencioso
   }
 };
 
@@ -121,10 +117,8 @@ export const removeCachedImage = async (productId) => {
       request.onsuccess = () => resolve();
       request.onerror = () => reject(request.error);
     });
-
-    console.log(`🗑️ Imagen del producto ${productId} eliminada del caché`);
   } catch (error) {
-    console.error('Error eliminando imagen del caché:', error);
+    // Error silencioso
   }
 };
 
@@ -134,9 +128,8 @@ export const removeCachedImages = async (productIds) => {
   
   try {
     await Promise.all(removePromises);
-    console.log(`🗑️ ${productIds.length} imágenes eliminadas del caché`);
   } catch (error) {
-    console.error('Error eliminando múltiples imágenes:', error);
+    // Error silencioso
   }
 };
 
@@ -152,10 +145,8 @@ export const clearImageCache = async () => {
       request.onsuccess = () => resolve();
       request.onerror = () => reject(request.error);
     });
-
-    console.log('🗑️ Caché de imágenes completamente limpiado');
   } catch (error) {
-    console.error('Error limpiando caché:', error);
+    // Error silencioso
   }
 };
 
@@ -179,7 +170,6 @@ export const getCacheStats = async () => {
       request.onerror = () => reject(request.error);
     });
   } catch (error) {
-    console.error('Error obteniendo estadísticas del caché:', error);
     return { totalImages: 0, dbName: DB_NAME };
   }
 };

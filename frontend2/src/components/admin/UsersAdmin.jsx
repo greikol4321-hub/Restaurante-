@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { FaEdit, FaTrash, FaSearch, FaPlus, FaCheck, FaTimes } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaSearch, FaPlus, FaCheck, FaTimes, FaExclamationCircle, FaCheckCircle, FaExclamationTriangle, FaUserEdit, FaUserPlus, FaEnvelope } from 'react-icons/fa';
 import Header from './Header';
 import { usuarioApi } from '../../utils/api';
 import { useToast } from '../common/ToastContainer';
@@ -53,12 +53,12 @@ const UserForm = ({ user, onSubmit, onCancel }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="group">
-          <label htmlFor="nombre" className="block text-sm font-bold text-[#d4af37] mb-3 
+          <label htmlFor="nombre" className="block text-xs font-bold text-[#d4af37] mb-2 
                                            group-focus-within:text-[#f4d47b] transition-colors">
-            👤 Nombre
+             Nombre
           </label>
           <input
             id="nombre"
@@ -67,17 +67,17 @@ const UserForm = ({ user, onSubmit, onCancel }) => {
             value={form.nombre}
             onChange={handleChange}
             required
-            className="w-full px-5 py-3 bg-[#0b0b0b] border-2 border-[#c5a028]/30 rounded-2xl 
+            className="w-full px-4 py-2.5 bg-[#0b0b0b] border-2 border-[#c5a028]/30 rounded-xl 
                      text-[#ffffff] placeholder-[#666666] focus:outline-none focus:border-[#d4af37] 
                      focus:shadow-[0_0_20px_rgba(212,175,55,0.15)] transition-all duration-300
-                     shadow-inner"
+                     shadow-inner text-sm"
           />
         </div>
 
         <div className="group">
-          <label htmlFor="apellido" className="block text-sm font-bold text-[#d4af37] mb-3
+          <label htmlFor="apellido" className="block text-xs font-bold text-[#d4af37] mb-2
                                              group-focus-within:text-[#f4d47b] transition-colors">
-            👤 Apellido
+             Apellido
           </label>
           <input
             id="apellido"
@@ -86,18 +86,18 @@ const UserForm = ({ user, onSubmit, onCancel }) => {
             value={form.apellido}
             onChange={handleChange}
             required
-            className="w-full px-5 py-3 bg-[#0b0b0b] border-2 border-[#c5a028]/30 rounded-2xl 
+            className="w-full px-4 py-2.5 bg-[#0b0b0b] border-2 border-[#c5a028]/30 rounded-xl 
                      text-[#ffffff] placeholder-[#666666] focus:outline-none focus:border-[#d4af37] 
                      focus:shadow-[0_0_20px_rgba(212,175,55,0.15)] transition-all duration-300
-                     shadow-inner"
+                     shadow-inner text-sm"
           />
         </div>
       </div>
 
       <div className="group">
-        <label htmlFor="email" className="block text-sm font-bold text-[#d4af37] mb-3
+        <label htmlFor="email" className="block text-xs font-bold text-[#d4af37] mb-2
                                          group-focus-within:text-[#f4d47b] transition-colors">
-          📧 Email
+           Email
         </label>
         <input
           id="email"
@@ -106,17 +106,17 @@ const UserForm = ({ user, onSubmit, onCancel }) => {
           value={form.email}
           onChange={handleChange}
           required
-          className="w-full px-5 py-3 bg-[#0b0b0b] border-2 border-[#c5a028]/30 rounded-2xl 
+          className="w-full px-4 py-2.5 bg-[#0b0b0b] border-2 border-[#c5a028]/30 rounded-xl 
                    text-[#ffffff] placeholder-[#666666] focus:outline-none focus:border-[#d4af37] 
                    focus:shadow-[0_0_20px_rgba(212,175,55,0.15)] transition-all duration-300
-                   shadow-inner"
+                   shadow-inner text-sm"
         />
       </div>
 
       <div className="group">
-        <label htmlFor="password" className="block text-sm font-bold text-[#d4af37] mb-3
+        <label htmlFor="password" className="block text-xs font-bold text-[#d4af37] mb-2
                                            group-focus-within:text-[#f4d47b] transition-colors">
-          🔒 {user ? 'Nueva Contraseña (dejar vacío para mantener)' : 'Contraseña'}
+           {user ? 'Nueva Contraseña (dejar vacío para mantener)' : 'Contraseña'}
         </label>
         <input
           id="password"
@@ -126,17 +126,17 @@ const UserForm = ({ user, onSubmit, onCancel }) => {
           value={form.password}
           onChange={handleChange}
           required={!user}
-          className="w-full px-5 py-3 bg-[#0b0b0b] border-2 border-[#c5a028]/30 rounded-2xl 
+          className="w-full px-4 py-2.5 bg-[#0b0b0b] border-2 border-[#c5a028]/30 rounded-xl 
                    text-[#ffffff] placeholder-[#666666] focus:outline-none focus:border-[#d4af37] 
                    focus:shadow-[0_0_20px_rgba(212,175,55,0.15)] transition-all duration-300
-                   shadow-inner"
+                   shadow-inner text-sm"
         />
       </div>
 
       <div className="group">
-        <label htmlFor="rol" className="block text-sm font-bold text-[#d4af37] mb-3
+        <label htmlFor="rol" className="block text-xs font-bold text-[#d4af37] mb-2
                                        group-focus-within:text-[#f4d47b] transition-colors">
-          💼 Rol del Usuario
+           Rol del Usuario
         </label>
         <select
           id="rol"
@@ -144,10 +144,10 @@ const UserForm = ({ user, onSubmit, onCancel }) => {
           value={form.rol}
           onChange={handleChange}
           required
-          className="w-full px-5 py-3 bg-[#0b0b0b] border-2 border-[#c5a028]/30 rounded-2xl 
+          className="w-full px-4 py-2.5 bg-[#0b0b0b] border-2 border-[#c5a028]/30 rounded-xl 
                    text-[#ffffff] focus:outline-none focus:border-[#d4af37] 
                    focus:shadow-[0_0_20px_rgba(212,175,55,0.15)] transition-all duration-300
-                   shadow-inner cursor-pointer"
+                   shadow-inner cursor-pointer text-sm"
         >
           <option value="CLIENTE">Cliente</option>
           <option value="MESERO">Mesero</option>
@@ -157,20 +157,20 @@ const UserForm = ({ user, onSubmit, onCancel }) => {
         </select>
       </div>
 
-      <div className="flex items-center gap-3 p-4 bg-[#0b0b0b] border-2 border-[#c5a028]/30 
-                    rounded-2xl hover:border-[#d4af37]/50 transition-all duration-300">
+      <div className="flex items-center gap-3 p-3 bg-[#0b0b0b] border-2 border-[#c5a028]/30 
+                    rounded-xl hover:border-[#d4af37]/50 transition-all duration-300">
         <input
           id="activo"
           type="checkbox"
           name="activo"
           checked={form.activo}
           onChange={handleChange}
-          className="w-5 h-5 accent-[#d4af37] cursor-pointer"
+          className="w-4 h-4 accent-[#d4af37] cursor-pointer"
         />
-        <label htmlFor="activo" className="text-base text-[#ffffff] font-semibold cursor-pointer flex-1">
-          ✅ Usuario activo
+        <label htmlFor="activo" className="text-sm text-[#ffffff] font-semibold cursor-pointer flex-1">
+           Usuario activo
         </label>
-        <div className={`px-3 py-1 rounded-full text-xs font-bold ${
+        <div className={`px-2.5 py-0.5 rounded-full text-xs font-bold ${
           form.activo 
             ? 'bg-green-500/20 text-green-400 border border-green-500/50' 
             : 'bg-red-500/20 text-red-400 border border-red-500/50'
@@ -179,29 +179,64 @@ const UserForm = ({ user, onSubmit, onCancel }) => {
         </div>
       </div>
 
-      <div className="flex gap-4 pt-6 border-t-2 border-[#c5a028]/20">
+      <div className="flex gap-3 pt-4 border-t-2 border-[#c5a028]/20">
         <button
           type="button"
           onClick={onCancel}
-          className="flex-1 px-8 py-4 bg-[#1a1a1a] border-2 border-[#c5a028]/30 text-[#ffffff] 
-                   rounded-2xl hover:border-[#d4af37] hover:scale-[1.02] transition-all duration-300
-                   font-bold text-lg shadow-lg"
+          className="flex-1 px-6 py-3 bg-[#1a1a1a] border-2 border-[#c5a028]/30 text-[#ffffff] 
+                   rounded-xl hover:border-[#d4af37] hover:scale-[1.02] transition-all duration-300
+                   font-bold text-base shadow-lg"
         >
-          ❌ Cancelar
+           Cancelar
         </button>
         <button
           type="submit"
           disabled={loading}
-          className="flex-1 px-8 py-4 bg-gradient-to-r from-[#d4af37] to-[#c5a028] text-[#000000] 
-                   font-black text-lg rounded-2xl hover:scale-[1.02] transition-all duration-300
+          className="flex-1 px-6 py-3 bg-gradient-to-r from-[#d4af37] to-[#c5a028] text-[#000000] 
+                   font-black text-base rounded-xl hover:scale-[1.02] transition-all duration-300
                    disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100
                    shadow-[0_8px_24px_rgba(212,175,55,0.4)] hover:shadow-[0_12px_32px_rgba(212,175,55,0.6)]"
         >
-          {loading ? '⏳ Guardando...' : user ? '💾 Actualizar' : '➕ Crear Usuario'}
+          {loading ? ' Guardando...' : user ? ' Actualizar' : ' Crear Usuario'}
         </button>
       </div>
     </form>
   );
+};
+
+const EditModal = ({ isOpen, user, onSubmit, onCancel }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto">
+      <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0b0b0b] border-2 border-[#d4af37]/30 
+                    p-6 rounded-2xl max-w-2xl w-full my-8 shadow-[0_8px_32px_rgba(212,175,55,0.2)]
+                    animate-[slideUp_0.3s_ease-out]">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#d4af37] to-[#c5a028] 
+                        flex items-center justify-center shadow-lg">
+            <FaUserEdit className="text-lg text-[#000000]" />
+          </div>
+          <h2 className="text-2xl font-black bg-gradient-to-r from-[#d4af37] to-[#f4d47b] 
+                       bg-clip-text text-transparent">
+            Editar Usuario
+          </h2>
+        </div>
+        <UserForm
+          user={user}
+          onSubmit={onSubmit}
+          onCancel={onCancel}
+        />
+      </div>
+    </div>
+  );
+};
+
+EditModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  user: PropTypes.object,
+  onSubmit: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
 };
 
 const ConfirmDialog = ({ isOpen, title, message, onConfirm, onCancel }) => {
@@ -217,7 +252,7 @@ const ConfirmDialog = ({ isOpen, title, message, onConfirm, onCancel }) => {
         <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 bg-gradient-to-br 
                       from-red-500 to-red-600 rounded-2xl flex items-center justify-center 
                       shadow-[0_8px_24px_rgba(239,68,68,0.4)]">
-          <span className="text-2xl">⚠️</span>
+          <FaExclamationTriangle className="text-2xl text-white" />
         </div>
         <h3 className="text-2xl font-black text-red-400 mb-3 mt-4 text-center">{title}</h3>
         <p className="text-[#bfbfbf] mb-8 text-center leading-relaxed">{message}</p>
@@ -248,11 +283,10 @@ const UsersAdmin = () => {
   const { showSuccess, showError, showWarning, showInfo } = useToast();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [editingUser, setEditingUser] = useState(null);
   const [showForm, setShowForm] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState({ show: false, user: null });
 
   const fetchUsers = async () => {
@@ -260,10 +294,8 @@ const UsersAdmin = () => {
       setLoading(true);
       const response = await usuarioApi.obtenerUsuarios();
       setUsers(response.data);
-      setError('');
     } catch (err) {
-      setError('Error al cargar los usuarios');
-      console.error('Error:', err);
+      showError('Error al cargar los usuarios');
     } finally {
       setLoading(false);
     }
@@ -275,56 +307,34 @@ const UsersAdmin = () => {
 
   const handleCreateUpdate = async (formData) => {
     try {
-      setError('');
-      setSuccess('');
-      
       if (editingUser) {
         showInfo('Actualizando usuario...');
         await usuarioApi.actualizarUsuario(editingUser.id, formData);
-        const successMsg = `Usuario ${formData.nombre} ${formData.apellido} actualizado exitosamente`;
-        showSuccess(successMsg);
-        setSuccess(successMsg);
+        showSuccess(`Usuario ${formData.nombre} ${formData.apellido} actualizado exitosamente`);
       } else {
         showInfo('Creando usuario...');
         await usuarioApi.crearUsuario(formData);
-        const successMsg = `Usuario ${formData.nombre} ${formData.apellido} creado exitosamente`;
-        showSuccess(successMsg);
-        setSuccess(successMsg);
+        showSuccess(`Usuario ${formData.nombre} ${formData.apellido} creado exitosamente`);
       }
       
       fetchUsers();
       setShowForm(false);
+      setShowEditModal(false);
       setEditingUser(null);
-      
-      // Limpiar el mensaje de éxito después de 3 segundos
-      setTimeout(() => {
-        setSuccess('');
-      }, 3000);
     } catch (err) {
       const errorMessage = err.response?.data?.error || 'Error al guardar el usuario';
       showError(errorMessage);
-      setError(`❌ ${errorMessage}`);
-      console.error('Error detallado:', {
-        status: err.response?.status,
-        data: err.response?.data,
-        message: err.message
-      });
     }
   };
 
   const handleDelete = async (user) => {
     try {
-      setError('');
-      setSuccess('');
-
       // Obtener el ID del usuario actual desde sessionStorage
       const currentUser = JSON.parse(sessionStorage.getItem('user') || '{}');
       
       // Validar que no se intente eliminar al usuario actual
       if (user.id === currentUser.id) {
-        const errorMsg = 'No puedes eliminar tu propia cuenta';
-        showWarning(errorMsg);
-        setError(`❌ ${errorMsg}`);
+        showWarning('No puedes eliminar tu propia cuenta');
         setConfirmDelete({ show: false, user: null });
         return;
       }
@@ -334,9 +344,7 @@ const UsersAdmin = () => {
         const response = await usuarioApi.obtenerUsuarios();
         const adminUsers = response.data.filter(u => u.rol === 'ADMIN');
         if (adminUsers.length <= 1) {
-          const errorMsg = 'No se puede eliminar al último administrador del sistema';
-          showWarning(errorMsg);
-          setError(`❌ ${errorMsg}`);
+          showWarning('No se puede eliminar al último administrador del sistema');
           setConfirmDelete({ show: false, user: null });
           return;
         }
@@ -344,23 +352,10 @@ const UsersAdmin = () => {
 
       showInfo('Eliminando usuario...');
       await usuarioApi.eliminarUsuario(user.id);
-      const successMsg = `Usuario ${user.nombre} ${user.apellido} eliminado exitosamente`;
-      showSuccess(successMsg);
-      setSuccess(successMsg);
+      showSuccess(`Usuario ${user.nombre} ${user.apellido} eliminado exitosamente`);
       setConfirmDelete({ show: false, user: null });
       fetchUsers();
-      
-      // Limpiar el mensaje de éxito después de 3 segundos
-      setTimeout(() => {
-        setSuccess('');
-      }, 3000);
     } catch (err) {
-      console.error('❌ Error detallado al eliminar usuario:', {
-        status: err.response?.status,
-        data: err.response?.data,
-        message: err.message
-      });
-
       // Manejar diferentes tipos de errores
       let errorMessage = 'Error al eliminar el usuario';
       
@@ -375,7 +370,7 @@ const UsersAdmin = () => {
         errorMessage = err.response.data.error;
       }
 
-      setError(`❌ ${errorMessage}`);
+      showError(errorMessage);
       setConfirmDelete({ show: false, user: null });
     }
   };
@@ -386,10 +381,10 @@ const UsersAdmin = () => {
         ...user,
         activo: !user.activo,
       });
+      showSuccess(`Usuario ${user.activo ? 'desactivado' : 'activado'} exitosamente`);
       fetchUsers();
     } catch (err) {
-      setError('Error al cambiar el estado del usuario');
-      console.error('Error:', err);
+      showError('Error al cambiar el estado del usuario');
     }
   };
 
@@ -443,26 +438,6 @@ const UsersAdmin = () => {
             </div>
           </div>
 
-          {error && (
-            <div className="bg-red-600/10 border-2 border-red-500/50 text-red-400 px-6 py-4 rounded-xl mb-6
-                          flex items-center gap-3 animate-[slideDown_0.3s_ease-out]">
-              <div className="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0">
-                <span className="text-xl">❌</span>
-              </div>
-              <p className="flex-1 text-lg font-semibold">{error}</p>
-            </div>
-          )}
-
-          {success && (
-            <div className="bg-green-600/10 border-2 border-green-500/50 text-green-400 px-6 py-4 rounded-xl mb-6
-                          flex items-center gap-3 animate-[slideDown_0.3s_ease-out]">
-              <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
-                <span className="text-xl">✅</span>
-              </div>
-              <p className="flex-1 text-lg font-semibold">{success}</p>
-            </div>
-          )}
-
           {showForm && (
             <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0b0b0b] border-2 border-[#d4af37]/30 
                           p-8 rounded-3xl mb-8 shadow-[0_8px_32px_rgba(212,175,55,0.2)]
@@ -470,7 +445,7 @@ const UsersAdmin = () => {
               <div className="flex items-center gap-4 mb-8">
                 <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#d4af37] to-[#c5a028] 
                               flex items-center justify-center shadow-lg">
-                  <span className="text-2xl">{editingUser ? '✏️' : '➕'}</span>
+                  <FaUserPlus className="text-2xl text-[#000000]" />
                 </div>
                 <h2 className="text-3xl font-black bg-gradient-to-r from-[#d4af37] to-[#f4d47b] 
                              bg-clip-text text-transparent">
@@ -556,7 +531,7 @@ const UsersAdmin = () => {
                       </div>
                       <div className="bg-[#0b0b0b]/50 border-2 border-[#c5a028]/20 rounded-2xl p-4">
                         <div className="flex items-center gap-2 text-[#888888]">
-                          <span className="text-[#d4af37] text-lg">📧</span>
+                          <FaEnvelope className="text-[#d4af37] text-lg" />
                           <span className="text-[#ffffff] font-semibold">{user.email}</span>
                         </div>
                       </div>
@@ -579,7 +554,7 @@ const UsersAdmin = () => {
                       <button
                         onClick={() => {
                           setEditingUser(user);
-                          setShowForm(true);
+                          setShowEditModal(true);
                         }}
                         className="p-4 bg-gradient-to-br from-[#d4af37]/20 to-[#c5a028]/20 
                                  border-2 border-[#d4af37]/50 text-[#d4af37] rounded-2xl 
@@ -610,15 +585,25 @@ const UsersAdmin = () => {
         </div>
       </div>
 
+      <EditModal
+        isOpen={showEditModal}
+        user={editingUser}
+        onSubmit={handleCreateUpdate}
+        onCancel={() => {
+          setShowEditModal(false);
+          setEditingUser(null);
+        }}
+      />
+
       <ConfirmDialog
         isOpen={confirmDelete.show}
         title="Eliminar Usuario"
         message={
           <div className="space-y-4">
             <p>¿Estás seguro de que deseas eliminar al usuario <span className="font-bold text-[#d4af37]">"{confirmDelete.user?.nombre} {confirmDelete.user?.apellido}"</span>?</p>
-            <p className="text-sm text-red-400">⚠️ Esta acción no se puede deshacer.</p>
+            <p className="text-sm text-red-400"> Esta acción no se puede deshacer.</p>
             {confirmDelete.user?.rol === 'ADMIN' && (
-              <p className="text-sm text-yellow-400">⚠️ Estás intentando eliminar un usuario con rol de Administrador.</p>
+              <p className="text-sm text-yellow-400"> Estás intentando eliminar un usuario con rol de Administrador.</p>
             )}
             <p className="text-sm text-[#bfbfbf]">
               Si el usuario tiene pedidos, reservas u otras acciones asociadas, no podrá ser eliminado.
@@ -642,6 +627,13 @@ UserForm.propTypes = {
     rol: PropTypes.string,
     activo: PropTypes.bool,
   }),
+  onSubmit: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
+};
+
+EditModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  user: PropTypes.object,
   onSubmit: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
 };

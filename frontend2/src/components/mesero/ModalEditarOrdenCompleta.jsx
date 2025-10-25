@@ -30,9 +30,6 @@ const ModalEditarOrdenCompleta = ({ open, onClose, orden, onUpdated }) => {
       const initial = {};
       const lista = orden.detalles || [];
       
-      console.log('Cargando orden para editar:', orden);
-      console.log('Detalles de la orden:', lista);
-      console.log('Items disponibles:', items);
       
       lista.forEach((detalle) => {
         // Buscar el producto por ID desde la estructura real de detalles
@@ -53,7 +50,6 @@ const ModalEditarOrdenCompleta = ({ open, onClose, orden, onUpdated }) => {
         }
       });
       
-      console.log('Carrito inicial:', initial);
       setCart(initial);
       setFilter('Todos');
     }
@@ -71,11 +67,9 @@ const ModalEditarOrdenCompleta = ({ open, onClose, orden, onUpdated }) => {
       }
       
       setLoadingProducts(true);
-      console.log('Cargando productos desde API...');
       try {
         const res = await menuApi.obtenerProductos();
         const data = res?.data ?? res ?? [];
-        console.log('Productos cargados:', data);
         
         if (Array.isArray(data) && data.length > 0) {
           // Normalizar la estructura de productos
@@ -92,7 +86,6 @@ const ModalEditarOrdenCompleta = ({ open, onClose, orden, onUpdated }) => {
           setItems(normalizedData);
         }
       } catch (e) {
-        console.error('No fue posible cargar productos para editar', e);
       } finally {
         setLoadingProducts(false);
       }
@@ -149,17 +142,14 @@ const ModalEditarOrdenCompleta = ({ open, onClose, orden, onUpdated }) => {
         }))
       };
       
-      console.log('Actualizando orden con payload:', payload);
       
       // Usar la API correcta para actualizar la orden
       await mesaOrdenesApi.actualizarOrden(orden.id, payload);
       
-      console.log('Orden actualizada exitosamente');
       showSuccess('¡Orden actualizada exitosamente!');
       onUpdated?.();
       onClose();
     } catch (e) {
-      console.error('Error actualizando orden:', e);
       const errorMsg = e.response?.data?.message || e.message || 'No fue posible actualizar la orden';
       showError(errorMsg);
     } finally {

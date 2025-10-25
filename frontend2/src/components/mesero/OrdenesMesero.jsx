@@ -64,7 +64,6 @@ const OrdenesMesero = () => {
         showInfo('No hay órdenes activas en este momento');
       }
     } catch (e) {
-      console.error('Error cargando órdenes:', e);
       const errorMsg = e.response?.status === 500 
         ? 'Error del servidor al cargar órdenes. Verifica el backend'
         : 'No se pudo cargar las órdenes';
@@ -81,7 +80,6 @@ const OrdenesMesero = () => {
   }, []);
 
   const onEdit = (orden) => {
-    console.log('Abriendo modal de edición para orden:', orden);
     setSel(orden);
     setOpen(true);
   };
@@ -101,7 +99,6 @@ const OrdenesMesero = () => {
       await load();
       setModalEntrega({ isOpen: false, ordenId: null });
     } catch (error) {
-      console.error('Error al marcar como entregada:', error);
       const errorMsg = error.response?.data?.message || 'Error al marcar la orden como entregada';
       showError(errorMsg);
     }
@@ -174,7 +171,7 @@ const OrdenesMesero = () => {
                     onClick={() => confirmarEntrega(o.id)} 
                     className="px-3 py-1.5 rounded-md bg-green-600 text-white hover:bg-green-700 font-semibold hover:scale-105 transition-transform flex items-center gap-1"
                   >
-                    <span className="text-sm">✓</span> Entregar
+                    <span className="text-sm"></span> Entregar
                   </button>
                 )}
               </div>

@@ -113,7 +113,6 @@ const AdminHome = () => {
         usuariosActivos: usuariosActivos.toString(),
       });
     } catch (error) {
-      console.error('Error al cargar estadísticas:', error);
     }
   };
 

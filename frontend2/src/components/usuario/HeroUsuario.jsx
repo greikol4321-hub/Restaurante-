@@ -24,11 +24,10 @@ const HeroUsuario = ({ user }) => {
           <div className="flex flex-col sm:flex-row justify-center gap-6 animate-scale-in">
             <Link
               to="/menu"
-              className="relative btn-primary group flex items-center justify-center gap-3"
+              className="btn-primary flex items-center justify-center gap-3"
             >
               <FaUtensils className="text-lg" />
               <span>Ir al Menú Digital</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700 rounded-xl"></div>
             </Link>
             <Link
               to="/reservas-usuario"

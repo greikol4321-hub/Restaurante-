@@ -97,7 +97,6 @@ const ReservaUsuario = () => {
       setFechasLlenas(fechasCompletas);
       
     } catch (error) {
-      console.error('Error cargando disponibilidad:', error);
     }
   };
 
@@ -159,7 +158,6 @@ const ReservaUsuario = () => {
       setDisponibilidadInfo({ disponible, mensaje });
       
     } catch (err) {
-      console.error('Error en verificación silenciosa:', err);
     }
   };
 
@@ -200,7 +198,6 @@ const ReservaUsuario = () => {
       
       setReservas(data);
     } catch (err) {
-      console.error('Error al cargar reservas:', err);
       setError('Error al cargar las reservas. Por favor, intenta de nuevo.');
       showError('Error al cargar las reservas');
     } finally {
@@ -368,7 +365,6 @@ const ReservaUsuario = () => {
       return disponible;
       
     } catch (err) {
-      console.error('❌ Error al verificar disponibilidad:', err);
       
       // Si hay error en la verificación, asumir disponibilidad limitada
       setDisponibilidadInfo({ 
@@ -409,7 +405,7 @@ const ReservaUsuario = () => {
       // Usar el mensaje específico de disponibilidad
       const mensajeError = disponibilidadInfo?.mensaje || 'No hay disponibilidad para la fecha y hora seleccionadas';
       showError(mensajeError);
-      setError(`❌ ${mensajeError}`);
+      setError(` ${mensajeError}`);
       return;
     }
 
@@ -424,7 +420,7 @@ const ReservaUsuario = () => {
         };
         await reservasApi.actualizarReserva(form.id, reservaData);
         showSuccess('¡Reserva actualizada exitosamente!');
-        setSuccess('✅ Reserva actualizada exitosamente. Los cambios han sido guardados.');
+        setSuccess(' Reserva actualizada exitosamente. Los cambios han sido guardados.');
       } else {
         showInfo('Creando reserva...');
         const fechaReserva = `${form.fecha}T${form.hora}:00`;
@@ -462,7 +458,6 @@ const ReservaUsuario = () => {
       // Recargar lista de reservas
       await fetchReservas();
     } catch (err) {
-      console.error('Error al procesar la reserva:', err);
       
       // Mostrar mensaje de error específico
       let errorMessage = 'Error al procesar la reserva';
@@ -508,7 +503,6 @@ const ReservaUsuario = () => {
       const errorMsg = err.response?.data?.message || 'Error al cancelar la reserva';
       showError(errorMsg);
       setError(errorMsg);
-      console.error('Error al cancelar reserva:', err);
     }
   };
 
@@ -626,7 +620,7 @@ const ReservaUsuario = () => {
               {/* Información de disponibilidad general */}
               {showForm && (
                 <div className="mb-6 p-4 rounded-xl bg-gradient-to-r from-[#1a1a1a] to-[#0b0b0b] border border-[#c5a028]/20">
-                  <h3 className="text-lg font-semibold text-[#d4af37] mb-3">ℹ️ Información de Disponibilidad</h3>
+                  <h3 className="text-lg font-semibold text-[#d4af37] mb-3">ℹ Información de Disponibilidad</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                     <div className="space-y-2">
                       <div className="flex items-center space-x-2">
@@ -638,7 +632,7 @@ const ReservaUsuario = () => {
                         <span className="text-[#bfbfbf]">Disponibilidad moderada (4-6 mesas ocupadas)</span>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <span className="text-lg">⏰</span>
+                        <span className="text-lg"></span>
                         <span className="text-[#bfbfbf]">Muy pronto (menos de 2 horas de anticipación)</span>
                       </div>
                     </div>
@@ -674,13 +668,13 @@ const ReservaUsuario = () => {
                   {form.fecha && fechasLlenas.has(form.fecha) && (
                     <p className="mt-2 text-sm text-red-400 flex items-center space-x-1">
                       <FaTimes className="flex-shrink-0" />
-                      <span>⚠️ Esta fecha está completamente reservada</span>
+                      <span> Esta fecha está completamente reservada</span>
                     </p>
                   )}
                   {form.fecha && !fechasLlenas.has(form.fecha) && (
                     <p className="mt-2 text-sm text-green-400 flex items-center space-x-1">
                       <FaCheck className="flex-shrink-0" />
-                      <span>✅ Fecha disponible</span>
+                      <span> Fecha disponible</span>
                     </p>
                   )}
                 </div>
@@ -716,11 +710,11 @@ const ReservaUsuario = () => {
                       if (faltaAnticipacion) {
                         disponibilidad = ' - Muy pronto';
                         disabled = true;
-                        emoji = '⏰';
+                        emoji = '';
                       } else if (ocupacion >= 9) {
                         disponibilidad = ' - Lleno';
                         disabled = true;
-                        emoji = '🔴';
+                        emoji = '';
                       } else if (ocupacion >= 7) {
                         disponibilidad = ' - Pocas mesas';
                         emoji = '🟠';
@@ -768,10 +762,10 @@ const ReservaUsuario = () => {
                           
                           if (faltaAnticipacion) {
                             colorClass = 'text-gray-500';
-                            emoji = '⏰';
+                            emoji = '';
                           } else if (ocupacion >= 9) {
                             colorClass = 'text-red-400';
-                            emoji = '🔴';
+                            emoji = '';
                           } else if (ocupacion >= 7) {
                             colorClass = 'text-orange-400';
                             emoji = '🟠';
@@ -799,8 +793,8 @@ const ReservaUsuario = () => {
                   )}
                   
                   <p className="mt-2 text-sm text-[#888888]">
-                    🕐 <strong>Horario:</strong> 11:00 AM - 8:00 PM<br/>
-                    ⏰ <strong>Anticipación:</strong> Mínimo 2 horas
+                     <strong>Horario:</strong> 11:00 AM - 8:00 PM<br/>
+                     <strong>Anticipación:</strong> Mínimo 2 horas
                   </p>
                 </div>
 
@@ -821,8 +815,8 @@ const ReservaUsuario = () => {
                     required
                   />
                   <p className="mt-2 text-sm text-[#888888]">
-                    👥 <strong>Máximo:</strong> 10 personas<br/>
-                    🍽️ <strong>Grupos grandes:</strong> Mesa especial requerida
+                     <strong>Máximo:</strong> 10 personas<br/>
+                     <strong>Grupos grandes:</strong> Mesa especial requerida
                   </p>
                 </div>
               </div>
@@ -846,11 +840,11 @@ const ReservaUsuario = () => {
                   {/* Mostrar fechas sugeridas si la actual no está disponible */}
                   {!disponibilidadInfo.disponible && form.fecha && (
                     <div className="mt-3 pt-3 border-t border-red-500/30">
-                      <p className="text-sm font-semibold mb-2">� Sugerencias para tu reserva:</p>
+                      <p className="text-sm font-semibold mb-2"> Sugerencias para tu reserva:</p>
                       
                       {fechasLlenas.has(form.fecha) && (
                         <div className="mb-3">
-                          <p className="text-sm mb-2">�📅 Fechas con mejor disponibilidad:</p>
+                          <p className="text-sm mb-2"> Fechas con mejor disponibilidad:</p>
                           <div className="flex flex-wrap gap-2">
                             {Array.from({ length: 7 }, (_, i) => {
                               const fechaSugerida = new Date();
@@ -880,8 +874,8 @@ const ReservaUsuario = () => {
                       
                       {form.fecha && !fechasLlenas.has(form.fecha) && (
                         <div className="text-sm space-y-1">
-                          <p>🕐 <strong>Horarios con mayor disponibilidad:</strong> 11:00 AM - 2:00 PM y 4:00 PM - 6:00 PM</p>
-                          <p>👥 <strong>Para grupos grandes (7+ personas):</strong> Recomendamos horarios de 11:00 AM - 1:00 PM</p>
+                          <p> <strong>Horarios con mayor disponibilidad:</strong> 11:00 AM - 2:00 PM y 4:00 PM - 6:00 PM</p>
+                          <p> <strong>Para grupos grandes (7+ personas):</strong> Recomendamos horarios de 11:00 AM - 1:00 PM</p>
                         </div>
                       )}
                     </div>
@@ -913,8 +907,8 @@ const ReservaUsuario = () => {
                   required
                 />
                 <p className="mt-2 text-sm text-[#888888]">
-                  📞 <strong>Formato:</strong> 1234-5678 (8 dígitos)<br/>
-                  ℹ️ <strong>Ejemplo:</strong> 6116-1249
+                   <strong>Formato:</strong> 1234-5678 (8 dígitos)<br/>
+                  ℹ <strong>Ejemplo:</strong> 6116-1249
                 </p>
               </div>
 
@@ -924,7 +918,7 @@ const ReservaUsuario = () => {
                 {disponibilidadInfo && !disponibilidadInfo.disponible && (
                   <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-lg">
                     <p className="text-red-400 text-sm text-center">
-                      ⚠️ No se puede crear la reserva: {disponibilidadInfo.mensaje}
+                       No se puede crear la reserva: {disponibilidadInfo.mensaje}
                     </p>
                   </div>
                 )}

@@ -28,11 +28,10 @@ const EliminarTodosPedidos = () => {
         await pedidosApi.eliminarPedido(pedido.id);
       }
       
-      showSuccess(`✅ ${pedidos.length} pedidos eliminados exitosamente`);
+      showSuccess(` ${pedidos.length} pedidos eliminados exitosamente`);
       setMostrarConfirmacion(false);
     } catch (error) {
-      console.error('Error:', error);
-      showError('❌ Error al eliminar los pedidos');
+      showError(' Error al eliminar los pedidos');
     } finally {
       setLoading(false);
     }
@@ -63,7 +62,7 @@ const EliminarTodosPedidos = () => {
 
         <div className="bg-red-500/10 border border-red-500/30 rounded-2xl p-4 mb-4">
           <p className="text-red-300 text-sm">
-            ⚠️ Esta acción eliminará TODOS los pedidos de usuarios (app) de la base de datos de forma permanente.
+             Esta acción eliminará TODOS los pedidos de usuarios (app) de la base de datos de forma permanente.
           </p>
         </div>
 
@@ -75,7 +74,7 @@ const EliminarTodosPedidos = () => {
                    disabled:opacity-50 transition-all duration-300 hover:scale-[1.02]
                    shadow-lg hover:shadow-red-500/50"
         >
-          {loading ? '⏳ Eliminando...' : '🗑️ Eliminar Todos los Pedidos'}
+          {loading ? ' Eliminando...' : ' Eliminar Todos los Pedidos'}
         </button>
 
         {mostrarConfirmacion && (
@@ -109,11 +108,10 @@ const EliminarTodasReservas = () => {
         await reservasApi.eliminarReserva(reserva.id);
       }
       
-      showSuccess(`✅ ${reservas.length} reservas eliminadas exitosamente`);
+      showSuccess(` ${reservas.length} reservas eliminadas exitosamente`);
       setMostrarConfirmacion(false);
     } catch (error) {
-      console.error('Error:', error);
-      showError('❌ Error al eliminar las reservas');
+      showError(' Error al eliminar las reservas');
     } finally {
       setLoading(false);
     }
@@ -144,7 +142,7 @@ const EliminarTodasReservas = () => {
 
         <div className="bg-orange-500/10 border border-orange-500/30 rounded-2xl p-4 mb-4">
           <p className="text-orange-300 text-sm">
-            ⚠️ Esta acción eliminará TODAS las reservas de la base de datos de forma permanente.
+             Esta acción eliminará TODAS las reservas de la base de datos de forma permanente.
           </p>
         </div>
 
@@ -156,7 +154,7 @@ const EliminarTodasReservas = () => {
                    disabled:opacity-50 transition-all duration-300 hover:scale-[1.02]
                    shadow-lg hover:shadow-orange-500/50"
         >
-          {loading ? '⏳ Eliminando...' : '📅 Eliminar Todas las Reservas'}
+          {loading ? ' Eliminando...' : ' Eliminar Todas las Reservas'}
         </button>
 
         {mostrarConfirmacion && (
@@ -183,10 +181,9 @@ const LimpiarCacheImagenes = () => {
       setLoading(true);
       showInfo('Limpiando caché de imágenes...');
       await clearImageCache();
-      showSuccess('✅ Caché de imágenes limpiado exitosamente');
+      showSuccess(' Caché de imágenes limpiado exitosamente');
     } catch (error) {
-      console.error('Error:', error);
-      showError('❌ Error al limpiar el caché');
+      showError(' Error al limpiar el caché');
     } finally {
       setLoading(false);
     }
@@ -217,7 +214,7 @@ const LimpiarCacheImagenes = () => {
 
         <div className="bg-purple-500/10 border border-purple-500/30 rounded-2xl p-4 mb-4">
           <p className="text-purple-300 text-sm">
-            💡 Esto eliminará todas las imágenes de productos almacenadas en IndexedDB. Las imágenes se volverán a descargar cuando sean necesarias.
+             Esto eliminará todas las imágenes de productos almacenadas en IndexedDB. Las imágenes se volverán a descargar cuando sean necesarias.
           </p>
         </div>
 
@@ -229,7 +226,7 @@ const LimpiarCacheImagenes = () => {
                    disabled:opacity-50 transition-all duration-300 hover:scale-[1.02]
                    shadow-lg hover:shadow-purple-500/50"
         >
-          {loading ? '⏳ Limpiando...' : '🧹 Limpiar Caché de Imágenes'}
+          {loading ? ' Limpiando...' : ' Limpiar Caché de Imágenes'}
         </button>
       </div>
     </div>
@@ -336,7 +333,6 @@ const EstadisticasSistema = () => {
       
       setMostrarModal(true);
     } catch (error) {
-      console.error('Error:', error);
     } finally {
       setLoading(false);
     }
@@ -368,7 +364,7 @@ const EstadisticasSistema = () => {
 
           <div className="bg-blue-500/10 border border-blue-500/30 rounded-2xl p-4 mb-4">
             <p className="text-blue-300 text-sm">
-              💡 Genera un reporte completo con todas las métricas del sistema: usuarios, productos, pedidos, reservas, ventas y más.
+               Genera un reporte completo con todas las métricas del sistema: usuarios, productos, pedidos, reservas, ventas y más.
             </p>
           </div>
 
@@ -380,7 +376,7 @@ const EstadisticasSistema = () => {
                      disabled:opacity-50 transition-all duration-300 hover:scale-[1.02]
                      shadow-lg hover:shadow-blue-500/50"
           >
-            {loading ? '⏳ Cargando...' : '📊 Ver Estadísticas Completas'}
+            {loading ? ' Cargando...' : ' Ver Estadísticas Completas'}
           </button>
         </div>
       </div>
@@ -425,7 +421,7 @@ const EstadisticasSistema = () => {
               <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-2 border-blue-500/30 
                             rounded-2xl p-6">
                 <h3 className="text-xl font-black text-blue-400 mb-4 flex items-center gap-2">
-                  <span>📊</span> Resumen General
+                  <span></span> Resumen General
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <StatCard label="Total Productos" value={stats.productos} color="blue" />
@@ -443,7 +439,7 @@ const EstadisticasSistema = () => {
               <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 border-2 border-purple-500/30 
                             rounded-2xl p-6">
                 <h3 className="text-xl font-black text-purple-400 mb-4 flex items-center gap-2">
-                  <span>👥</span> Usuarios por Rol
+                  <span></span> Usuarios por Rol
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                   <StatCard label="Administradores" value={stats.usuariosPorRol.admin} color="red" />
@@ -458,7 +454,7 @@ const EstadisticasSistema = () => {
               <div className="bg-gradient-to-r from-orange-500/10 to-red-500/10 border-2 border-orange-500/30 
                             rounded-2xl p-6">
                 <h3 className="text-xl font-black text-orange-400 mb-4 flex items-center gap-2">
-                  <span>🛒</span> Pedidos (App) por Estado
+                  <span></span> Pedidos (App) por Estado
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   <StatCard label="Pendientes" value={stats.pedidosPorEstado.pendiente} color="yellow" />
@@ -474,7 +470,7 @@ const EstadisticasSistema = () => {
               <div className="bg-gradient-to-r from-green-500/10 to-teal-500/10 border-2 border-green-500/30 
                             rounded-2xl p-6">
                 <h3 className="text-xl font-black text-green-400 mb-4 flex items-center gap-2">
-                  <span>🍽️</span> Órdenes de Mesa por Estado
+                  <span></span> Órdenes de Mesa por Estado
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   <StatCard label="Pendientes" value={stats.ordenesPorEstado.pendiente} color="yellow" />
@@ -490,7 +486,7 @@ const EstadisticasSistema = () => {
               <div className="bg-gradient-to-r from-yellow-500/10 to-orange-500/10 border-2 border-yellow-500/30 
                             rounded-2xl p-6">
                 <h3 className="text-xl font-black text-yellow-400 mb-4 flex items-center gap-2">
-                  <span>📅</span> Reservas por Estado
+                  <span></span> Reservas por Estado
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <StatCard label="Pendientes" value={stats.reservasPorEstado.pendiente} color="yellow" />
@@ -504,7 +500,7 @@ const EstadisticasSistema = () => {
               <div className="bg-gradient-to-r from-green-500/10 to-emerald-500/10 border-2 border-green-500/30 
                             rounded-2xl p-6">
                 <h3 className="text-xl font-black text-green-400 mb-4 flex items-center gap-2">
-                  <span>💰</span> Estadísticas de Ventas
+                  <span></span> Estadísticas de Ventas
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="bg-green-500/10 border-2 border-green-500/30 rounded-xl p-4">
@@ -528,7 +524,7 @@ const EstadisticasSistema = () => {
                 </div>
                 <div className="mt-4 bg-gradient-to-r from-green-600/20 to-emerald-600/20 border-2 border-green-500/50 
                               rounded-xl p-6 text-center">
-                  <p className="text-green-300 text-sm uppercase tracking-wider mb-2">💎 TOTAL VENTAS GENERAL</p>
+                  <p className="text-green-300 text-sm uppercase tracking-wider mb-2"> TOTAL VENTAS GENERAL</p>
                   <p className="text-4xl md:text-5xl font-black bg-gradient-to-r from-green-400 to-emerald-400 
                                bg-clip-text text-transparent">
                     ₡{stats.totalVentasGeneral.toLocaleString('es-CR', {minimumFractionDigits: 2})}
@@ -547,7 +543,7 @@ const EstadisticasSistema = () => {
                          transition-all duration-300 hover:scale-[1.02]
                          shadow-lg hover:shadow-blue-500/50"
               >
-                ✅ Cerrar Reporte
+                 Cerrar Reporte
               </button>
             </div>
           </div>
@@ -601,11 +597,10 @@ const ResetearOrdenesMesa = () => {
         await mesaOrdenesApi.eliminarOrden(orden.id);
       }
       
-      showSuccess(`✅ ${ordenes.length} órdenes de mesa eliminadas exitosamente`);
+      showSuccess(` ${ordenes.length} órdenes de mesa eliminadas exitosamente`);
       setMostrarConfirmacion(false);
     } catch (error) {
-      console.error('Error:', error);
-      showError('❌ Error al eliminar las órdenes de mesa');
+      showError(' Error al eliminar las órdenes de mesa');
     } finally {
       setLoading(false);
     }
@@ -636,7 +631,7 @@ const ResetearOrdenesMesa = () => {
 
         <div className="bg-green-500/10 border border-green-500/30 rounded-2xl p-4 mb-4">
           <p className="text-green-300 text-sm">
-            ⚠️ Esta acción eliminará TODAS las órdenes de mesa del sistema de forma permanente.
+             Esta acción eliminará TODAS las órdenes de mesa del sistema de forma permanente.
           </p>
         </div>
 
@@ -648,7 +643,7 @@ const ResetearOrdenesMesa = () => {
                    disabled:opacity-50 transition-all duration-300 hover:scale-[1.02]
                    shadow-lg hover:shadow-green-500/50"
         >
-          {loading ? '⏳ Eliminando...' : '🍽️ Resetear Órdenes de Mesa'}
+          {loading ? ' Eliminando...' : ' Resetear Órdenes de Mesa'}
         </button>
 
         {mostrarConfirmacion && (
@@ -677,7 +672,7 @@ const ModalConfirmacion = ({ titulo, mensaje, onConfirmar, onCancelar, loading }
         <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 bg-gradient-to-br 
                       from-red-500 to-red-600 rounded-2xl flex items-center justify-center 
                       shadow-[0_8px_24px_rgba(239,68,68,0.4)]">
-          <span className="text-2xl">⚠️</span>
+          <span className="text-2xl"></span>
         </div>
         
         <h3 className="text-2xl font-black text-red-400 mb-3 mt-4 text-center">{titulo}</h3>
@@ -701,7 +696,7 @@ const ModalConfirmacion = ({ titulo, mensaje, onConfirmar, onCancelar, loading }
                      shadow-[0_4px_20px_rgba(239,68,68,0.4)] hover:shadow-[0_6px_30px_rgba(239,68,68,0.6)]
                      disabled:opacity-50 flex items-center justify-center gap-2"
           >
-            {loading ? '⏳ Procesando...' : <><FaCheckCircle /> Confirmar</>}
+            {loading ? ' Procesando...' : <><FaCheckCircle /> Confirmar</>}
           </button>
         </div>
       </div>
@@ -752,7 +747,7 @@ const ToolsAdmin = () => {
               <FaExclamationTriangle className="text-red-400 text-xl mt-1 flex-shrink-0" />
               <div className="flex-1">
                 <h3 className="text-red-400 font-bold text-lg mb-2">
-                  ⚠️ ZONA DE PELIGRO - HERRAMIENTAS AVANZADAS
+                   ZONA DE PELIGRO - HERRAMIENTAS AVANZADAS
                 </h3>
                 <p className="text-red-300 mb-3">
                   Las herramientas en esta sección pueden realizar cambios irreversibles en la base de datos. 
@@ -803,25 +798,25 @@ const ToolsAdmin = () => {
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 
                               flex items-center justify-center shadow-lg flex-shrink-0">
-                  <span className="text-2xl">💡</span>
+                  <span className="text-2xl"></span>
                 </div>
                 <div className="flex-1">
                   <h3 className="text-blue-400 font-black text-xl mb-3">Consejos de Seguridad</h3>
                   <div className="text-blue-300 space-y-3">
                     <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-3">
-                      <p className="font-semibold mb-1">🔧 Desarrollo</p>
+                      <p className="font-semibold mb-1"> Desarrollo</p>
                       <p className="text-sm">Estas herramientas son útiles para limpiar datos de prueba y resetear el sistema</p>
                     </div>
                     <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-3">
-                      <p className="font-semibold mb-1">⚠️ Producción</p>
+                      <p className="font-semibold mb-1"> Producción</p>
                       <p className="text-sm">NUNCA uses estas herramientas en producción sin respaldo completo</p>
                     </div>
                     <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-xl p-3">
-                      <p className="font-semibold mb-1">💾 Respaldos</p>
+                      <p className="font-semibold mb-1"> Respaldos</p>
                       <p className="text-sm">Siempre crea backups antes de operaciones masivas</p>
                     </div>
                     <div className="bg-green-500/10 border border-green-500/20 rounded-xl p-3">
-                      <p className="font-semibold mb-1">✅ Verificación</p>
+                      <p className="font-semibold mb-1"> Verificación</p>
                       <p className="text-sm">Verifica dos veces antes de confirmar eliminaciones</p>
                     </div>
                   </div>

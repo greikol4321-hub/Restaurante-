@@ -33,25 +33,16 @@ const HomeCocinero = () => {
       const pedidosResponse = await pedidosApi.listarPedidos();
       const ordenesResponse = await mesaOrdenesApi.listarOrdenes();
       
-      console.log('=== DEBUG INICIO ===');
-      console.log('Respuesta pedidos completa:', JSON.stringify(pedidosResponse, null, 2));
-      console.log('Respuesta órdenes completa:', JSON.stringify(ordenesResponse, null, 2));
-      console.log('Tipo de pedidosResponse:', typeof pedidosResponse, Array.isArray(pedidosResponse));
-      console.log('Tipo de ordenesResponse:', typeof ordenesResponse, Array.isArray(ordenesResponse));
 
       // Extraer los datos correctamente de las respuestas
       const pedidos = Array.isArray(pedidosResponse) ? pedidosResponse : [];
       const ordenes = ordenesResponse?.data || [];
 
-      console.log('Pedidos extraídos:', pedidos.length, pedidos);
-      console.log('Órdenes extraídas:', ordenes.length, ordenes);
 
       // Para métricas acumuladas (todo el sistema) contamos todos los pedidos y órdenes
       const pedidosAll = pedidos || [];
       const ordenesAll = ordenes || [];
 
-      console.log('Pedidos totales recuperados:', pedidosAll.length);
-      console.log('Órdenes totales recuperadas:', ordenesAll.length);
 
       let pendientes = 0,
         completadas = 0,
@@ -88,13 +79,9 @@ const HomeCocinero = () => {
       const totalOrdenes = pedidosAll.length + ordenesAll.length;
       const promedioCompletadas = totalOrdenes > 0 ? ((completadas / totalOrdenes) * 100).toFixed(1) : '0.0';
 
-  console.log('Métricas acumuladas finales:', { pendientes, completadas, canceladas, totalOrdenes, promedioCompletadas });
-      console.log('=== DEBUG FIN ===');
       
       setMetricas({ pendientes, completadas, canceladas, totalOrdenes, promedioCompletadas });
     } catch (err) {
-      console.error('Error completo al cargar métricas:', err);
-      console.error('Stack:', err.stack);
       setError('Error al cargar métricas: ' + err.message);
     }
     setLoading(false);

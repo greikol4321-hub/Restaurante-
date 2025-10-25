@@ -21,16 +21,12 @@ export const mesaOrdenesApi = {
         throw new Error(`Estado inválido. Debe ser uno de: ${estadosPermitidos.join(', ')}`);
       }
 
-      console.log('Enviando petición con datos:', { estado });
       const response = await axios.put(`/api/mesas-ordenes/${ordenId}/estado`, { 
         estado: estado
       });
-      console.log('Respuesta al actualizar estado:', response.data);
       return response.data;
     } catch (error) {
-      console.error('Error actualizando estado de orden:', error);
       if (error.response?.data) {
-        console.error('Detalles del error:', error.response.data);
       }
       throw error;
     }
@@ -47,7 +43,6 @@ export const pedidosApi = {
       const response = await axios.get('/api/pedidos');
       return response.data;
     } catch (error) {
-      console.error('Error al listar pedidos:', error.response?.data || error.message);
       throw error;
     }
   },
@@ -75,7 +70,6 @@ export const pedidosApi = {
         total: pedido.total || 0
       }));
     } catch (error) {
-      console.error('Error al listar pedidos del usuario:', error.response?.data || error.message);
       throw error;
     }
   },
@@ -86,7 +80,6 @@ export const pedidosApi = {
       const response = await axios.get(`/api/pedidos/${pedidoId}`);
       return response.data;
     } catch (error) {
-      console.error('Error al obtener pedido:', error.response?.data || error.message);
       throw error;
     }
   },
@@ -97,7 +90,6 @@ export const pedidosApi = {
       const response = await axios.post('/api/pedidos', pedidoData);
       return response.data;
     } catch (error) {
-      console.error('Error al crear pedido:', error.response?.data || error.message);
       throw error;
     }
   },
@@ -108,7 +100,6 @@ export const pedidosApi = {
       const response = await axios.put(`/api/pedidos/${pedidoId}/estado`, { estado });
       return response.data;
     } catch (error) {
-      console.error('Error al actualizar estado del pedido:', error.response?.data || error.message);
       throw error;
     }
   },
@@ -119,7 +110,6 @@ export const pedidosApi = {
       const response = await axios.get('/api/pedidos/cocina');
       return response.data;
     } catch (error) {
-      console.error('Error al obtener pedidos de cocina:', error.response?.data || error.message);
       throw error;
     }
   },
@@ -130,7 +120,6 @@ export const pedidosApi = {
       const response = await axios.get('/api/mesas-ordenes');
       return response.data;
     } catch (error) {
-      console.error('Error al obtener órdenes de mesas:', error.response?.data || error.message);
       throw error;
     }
   },
@@ -261,7 +250,6 @@ export const getPedidosCocina = async () => {
   try {
     return await pedidosApi.obtenerPedidosCocina();
   } catch (error) {
-    console.error('Error en getPedidosCocina:', error);
     throw error;
   }
 };
@@ -270,7 +258,6 @@ export const getOrdenesMesa = async () => {
   try {
     return await mesaOrdenesApi.listarOrdenes();
   } catch (error) {
-    console.error('Error en getOrdenesMesa:', error);
     throw error;
   }
 };
@@ -279,7 +266,6 @@ export const updateEstadoPedido = async (id, estado) => {
   try {
     await pedidosApi.actualizarEstado(id, estado);
   } catch (error) {
-    console.error('Error en updateEstadoPedido:', error);
     throw error;
   }
 };
@@ -288,7 +274,6 @@ export const updateEstadoOrdenMesa = async (id, estado) => {
   try {
     await mesaOrdenesApi.actualizarEstadoOrden(id, estado);
   } catch (error) {
-    console.error('Error en updateEstadoOrdenMesa:', error);
     throw error;
   }
 };

@@ -83,7 +83,6 @@ const SignIn = () => {
       }, 2000);
     } catch (err) {
       setError('Error al crear la cuenta. Intenta con otro correo o revisa los datos.');
-      console.error('Error de registro:', err);
     } finally {
       setLoading(false);
     }

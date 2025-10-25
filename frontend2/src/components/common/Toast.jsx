@@ -51,18 +51,18 @@ const Toast = ({ message, type = 'info', duration = 4000, onClose }) => {
 
   return (
     <div 
-      className={`${config.bg} ${config.border} border-2 rounded-xl p-4 shadow-2xl backdrop-blur-sm animate-slide-up min-w-[300px] max-w-md`}
+      className={`${config.bg} ${config.border} border rounded-lg p-3 shadow-xl backdrop-blur-sm animate-slide-up min-w-[250px] max-w-sm`}
       role="alert"
     >
-      <div className="flex items-start gap-3">
-        <Icon className={`${config.iconColor} text-2xl flex-shrink-0 mt-0.5`} />
+      <div className="flex items-start gap-2">
+        <Icon className={`${config.iconColor} text-lg flex-shrink-0 mt-0.5`} />
         <div className="flex-1">
-          <h4 className="font-semibold text-[#ffffff] mb-1">{config.title}</h4>
-          <p className="text-sm text-[#ffffff]/90">{message}</p>
+          <h4 className="font-semibold text-[#ffffff] text-sm mb-0.5">{config.title}</h4>
+          <p className="text-xs text-[#ffffff]/90 leading-snug">{message}</p>
         </div>
         <button
           onClick={onClose}
-          className="text-[#ffffff]/70 hover:text-[#ffffff] transition-colors"
+          className="text-[#ffffff]/70 hover:text-[#ffffff] transition-colors text-sm"
           aria-label="Cerrar notificación"
         >
           <FaTimes />

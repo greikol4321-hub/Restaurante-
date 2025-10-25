@@ -16,31 +16,24 @@ const PedidosUsuario = () => {
   const [mostrarModal, setMostrarModal] = useState(false);
 
   useEffect(() => {
-    console.log('🔄 Iniciando componente PedidosUsuario');
     try {
       const userDataStr = sessionStorage.getItem('user');
-      console.log('📝 User data string:', userDataStr);
       
       if (!userDataStr) {
-        console.log('❌ No hay datos de usuario en sessionStorage');
         navigate('/login');
         return;
       }
 
       const userData = JSON.parse(userDataStr);
-      console.log('👤 Datos de usuario:', userData);
 
       if (!userData?.id) {
-        console.log('❌ Datos de usuario inválidos');
         navigate('/login');
         return;
       }
 
       setUser(userData);
-      console.log('🚀 Iniciando carga de pedidos para usuario:', userData.id);
       fetchPedidos(userData.id);
     } catch (error) {
-      console.error('❌ Error al inicializar componente:', error);
       navigate('/login');
     }
   }, [navigate]);
@@ -49,29 +42,18 @@ const PedidosUsuario = () => {
     try {
       setLoading(true);
       setError(null);
-      console.log('🔍 Intentando obtener pedidos para el usuario:', userId);
       
       const response = await pedidosApi.listarPedidosPorUsuario(userId);
-      console.log('📦 Respuesta de pedidos:', response);
       
       if (response && Array.isArray(response)) {
-        console.log('✅ Pedidos obtenidos correctamente:', response.length);
         setPedidos(response);
       } else if (response && Array.isArray(response.data)) {
-        console.log('✅ Pedidos obtenidos de response.data:', response.data.length);
         setPedidos(response.data);
       } else {
-        console.warn('⚠️ Respuesta inválida:', response);
         setPedidos([]);
         setError('No se pudieron cargar los pedidos correctamente.');
       }
     } catch (err) {
-      console.error('❌ Error al cargar pedidos:', err);
-      console.error('Detalles del error:', {
-        message: err.message,
-        response: err.response?.data,
-        status: err.response?.status
-      });
       setError('Error al cargar los pedidos. Por favor, intente nuevamente.');
       setPedidos([]);
     } finally {
@@ -90,7 +72,6 @@ const PedidosUsuario = () => {
       fetchPedidos(user.id); // Recargar lista
     } catch (err) {
       setError('Error al cancelar el pedido. Por favor, intente nuevamente.');
-      console.error('Error canceling pedido:', err);
     }
   };
 
@@ -110,7 +91,6 @@ const PedidosUsuario = () => {
   };
 
   const handleVerDetalles = (pedido) => {
-    console.log('Ver detalles del pedido:', pedido);
     setPedidoSeleccionado(pedido);
     setMostrarModal(true);
   };
@@ -126,8 +106,17 @@ const PedidosUsuario = () => {
   }, []) || [];
 
   // Filtrar por fecha si hay una fecha seleccionada
-    const filteredPedidos = searchDate
-    ? pedidos.filter(pedido => pedido?.fecha_pedido?.startsWith(searchDate))
+  const filteredPedidos = searchDate
+    ? pedidos.filter(pedido => {
+        if (!pedido?.fechaPedido) return false;
+        // Crear fecha sin conversión de zona horaria
+        const fecha = new Date(pedido.fechaPedido);
+        const year = fecha.getFullYear();
+        const month = String(fecha.getMonth() + 1).padStart(2, '0');
+        const day = String(fecha.getDate()).padStart(2, '0');
+        const fechaPedido = `${year}-${month}-${day}`;
+        return fechaPedido === searchDate;
+      })
     : pedidos;
 
   return (
@@ -149,7 +138,9 @@ const PedidosUsuario = () => {
             {/* Contador de pedidos */}
             <div className="bg-[#d4af37]/10 border border-[#d4af37]/30 rounded-lg px-4 py-2">
               <span className="text-[#bfbfbf]">Total de pedidos: </span>
-              <span className="text-[#d4af37] font-semibold">{pedidos?.length || 0}</span>
+              <span className="text-[#d4af37] font-semibold">
+                {searchDate ? `${filteredPedidos?.length || 0} de ${pedidos?.length || 0}` : `${pedidos?.length || 0}`}
+              </span>
             </div>
           </div>
 
@@ -207,6 +198,27 @@ const PedidosUsuario = () => {
                 <div className="text-center py-8">
                   <p className="text-[#bfbfbf] text-lg">No tienes pedidos activos</p>
                   <p className="text-[#bfbfbf]/60 mt-2">Tus pedidos aparecerán aquí cuando realices uno</p>
+                </div>
+              );
+            }
+            
+            if (searchDate && filteredPedidos.length === 0) {
+              return (
+                <div className="text-center py-8">
+                  <p className="text-[#bfbfbf] text-lg">No hay pedidos para la fecha seleccionada</p>
+                  <p className="text-[#bfbfbf]/60 mt-2">
+                    {new Date(searchDate + 'T00:00:00').toLocaleDateString('es-ES', { 
+                      day: '2-digit', 
+                      month: 'long', 
+                      year: 'numeric' 
+                    })}
+                  </p>
+                  <button
+                    onClick={() => setSearchDate('')}
+                    className="mt-4 text-[#d4af37] hover:text-[#f4d47b] transition-colors text-sm underline"
+                  >
+                    Ver todos los pedidos
+                  </button>
                 </div>
               );
             }

@@ -108,7 +108,6 @@ const OrdenesCocina = () => {
         setPedidos(datos);
       }
     } catch (err) {
-      console.error('Error cargando datos:', err);
       setError('Error al cargar los datos. Verifica la conexión con el backend.');
     } finally {
       setLoading(false);
@@ -120,11 +119,9 @@ const OrdenesCocina = () => {
     try {
       setLoading(true);
       showInfo(`Actualizando estado a ${nuevoEstado}...`);
-      console.log(`Cambiando estado de orden ${ordenId} a ${nuevoEstado}`);
 
       // Actualizar el estado usando el endpoint específico
       const response = await mesaOrdenesApi.actualizarEstadoOrden(ordenId, nuevoEstado);
-      console.log('Respuesta del servidor:', response);
       
       // Mostrar mensaje de éxito según el estado
       if (nuevoEstado === 'PREPARANDO') {
@@ -137,9 +134,7 @@ const OrdenesCocina = () => {
       await cargarDatos();
 
     } catch (err) {
-      console.error('Error cambiando estado:', err);
       if (err.response?.data) {
-        console.error('Detalles del error:', err.response.data);
       }
       
       let mensajeError = 'Error desconocido';
@@ -171,7 +166,6 @@ const OrdenesCocina = () => {
   // Función para cambiar el estado de un pedido
   const cambiarEstadoPedido = async (pedidoId, nuevoEstado) => {
     try {
-      console.log(`Cambiando estado de pedido ${pedidoId} a ${nuevoEstado}`);
       
       // Validar transición según el tipo de pedido
       const estadoActual = pedidos.find(p => p.id === pedidoId)?.estado;
@@ -188,7 +182,6 @@ const OrdenesCocina = () => {
 
       showInfo(`Actualizando pedido a ${nuevoEstado}...`);
       const response = await pedidosApi.actualizarEstado(pedidoId, nuevoEstado);
-      console.log('Respuesta del servidor:', response);
 
       // Mostrar mensaje de éxito
       if (nuevoEstado === 'PREPARANDO') {
@@ -199,8 +192,6 @@ const OrdenesCocina = () => {
 
       cargarDatos(); // Recargar los datos
     } catch (err) {
-      console.error('Error cambiando estado:', err);
-      console.error('Detalles del error:', err.response?.data);
       
       let mensajeError = err.message;
       if (err.response?.status === 500) {
@@ -383,20 +374,24 @@ const OrdenesCocina = () => {
                       {orden.estado === 'PENDIENTE' && (
                         <button
                           onClick={() => cambiarEstadoOrden(orden.id, 'PREPARANDO')}
-                          className="flex-1 px-4 py-2 rounded-lg text-sm font-bold transition-colors
-                                   bg-blue-600 text-white hover:bg-blue-500"
+                          className="flex-1 px-4 py-2 rounded-lg text-sm font-bold transition-all
+                                   bg-gradient-to-r from-[#d4af37] to-[#000000] text-[#ffffff] 
+                                   hover:from-[#c5a028] hover:to-[#1a1a1a] shadow-lg 
+                                   hover:shadow-[#d4af37]/30 active:scale-95"
                         >
-                          🔥 Empezar a Preparar
+                           Empezar a Preparar
                         </button>
                       )}
                       {/* Botón para marcar como listo */}
                       {orden.estado === 'PREPARANDO' && (
                         <button
                           onClick={() => cambiarEstadoOrden(orden.id, 'LISTO')}
-                          className="flex-1 px-4 py-2 rounded-lg text-sm font-bold transition-colors
-                                   bg-green-600 text-white hover:bg-green-500"
+                          className="flex-1 px-4 py-2 rounded-lg text-sm font-bold transition-all
+                                   bg-gradient-to-r from-[#d4af37] to-[#000000] text-[#ffffff] 
+                                   hover:from-[#c5a028] hover:to-[#1a1a1a] shadow-lg 
+                                   hover:shadow-[#d4af37]/30 active:scale-95"
                         >
-                          ✅ Marcar como Listo
+                           Marcar como Listo
                         </button>
                       )}
                     </div>
@@ -484,19 +479,23 @@ const OrdenesCocina = () => {
                       {pedido.estado === 'PENDIENTE' && (
                         <button
                           onClick={() => cambiarEstadoPedido(pedido.id, 'PREPARANDO')}
-                          className="flex-1 px-4 py-2 rounded-lg text-sm font-bold transition-colors
-                                   bg-blue-600 text-white hover:bg-blue-500"
+                          className="flex-1 px-4 py-2 rounded-lg text-sm font-bold transition-all
+                                   bg-gradient-to-r from-[#d4af37] to-[#000000] text-[#ffffff] 
+                                   hover:from-[#c5a028] hover:to-[#1a1a1a] shadow-lg 
+                                   hover:shadow-[#d4af37]/30 active:scale-95"
                         >
-                          🔥 Empezar a Preparar
+                           Empezar a Preparar
                         </button>
                       )}
                       {pedido.estado === 'PREPARANDO' && (
                         <button
                           onClick={() => cambiarEstadoPedido(pedido.id, 'PREPARADO')}
-                          className="flex-1 px-4 py-2 rounded-lg text-sm font-bold transition-colors
-                                   bg-green-600 text-white hover:bg-green-500"
+                          className="flex-1 px-4 py-2 rounded-lg text-sm font-bold transition-all
+                                   bg-gradient-to-r from-[#d4af37] to-[#000000] text-[#ffffff] 
+                                   hover:from-[#c5a028] hover:to-[#1a1a1a] shadow-lg 
+                                   hover:shadow-[#d4af37]/30 active:scale-95"
                         >
-                          ✅ Marcar como Preparado
+                           Marcar como Preparado
                         </button>
                       )}
                     </div>
